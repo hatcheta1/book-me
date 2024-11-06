@@ -1,9 +1,23 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @business %>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"><%= @business.name %></h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary"><%= @business.address %></h6>
+    <p class="card-text"><%= @business.about %></p>
+    <p class="card-text">Services</p>
+    <% @business.services.each do |service| %>
+    <ul class="list-group list-group-flush">
+  <li class="list-group-item"><%= service.name %></li>
+</ul>
+<% end %>
+  </div>
+</div>
 
 <div>
-  <%= link_to "Edit this business", edit_business_path(@business) %> |
+Owner: <%= @business.owner.full_name %>
+</div>
+
+<div>
+  <%= link_to "Edit business profile", edit_business_path(@business) %> |
   <%= link_to "Back to businesses", businesses_path %>
 
   <%= button_to "Destroy this business", @business, method: :delete %>

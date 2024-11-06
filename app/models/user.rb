@@ -40,4 +40,8 @@ class User < ApplicationRecord
          :confirmable
 
   has_many :businesses
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
