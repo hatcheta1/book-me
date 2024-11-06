@@ -1,0 +1,17 @@
+
+<%= simple_form_for(@business_hour) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.association :business %>
+    <%= f.input :day_of_the_week %>
+    <%= f.input :opening_time %>
+    <%= f.input :closing_time %>
+    <%= f.input :closed %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

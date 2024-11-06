@@ -38,4 +38,6 @@ class User < ApplicationRecord
          :validatable,
          :trackable,
          :confirmable
+
+  has_many :businesses
 end

@@ -10,9 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_06_162513) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_06_170709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "business_hours", force: :cascade do |t|
+    t.bigint "business_id", null: false
+    t.string "day_of_the_week"
+    t.time "opening_time"
+    t.time "closing_time"
+    t.boolean "closed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_hours_on_business_id"
+  end
+
+  create_table "businesses", force: :cascade do |t|
+    t.bigint "owner_id", null: false
+    t.string "name"
+    t.string "address"
+    t.string "about"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_businesses_on_owner_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.bigint "business_id", null: false
+    t.string "name"
+    t.string "description"
+    t.integer "duration"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_services_on_business_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -38,4 +70,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_06_162513) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "business_hours", "businesses"
+  add_foreign_key "businesses", "users", column: "owner_id"
+  add_foreign_key "services", "businesses"
 end
