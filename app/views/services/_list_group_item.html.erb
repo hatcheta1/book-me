@@ -1,0 +1,26 @@
+<li class="list-group-item d-flex justify-content-between">
+  <div class="ms-2 me-auto">
+    <div class="fw-bold"><%= service.name %></div>
+    <small style="word-wrap: break-word; overflow-wrap: break-word; max-width: 400px; display: block;"><%= service.description %></small>
+  </div>
+
+<div class="d-flex align-items-center">
+  <div class="d-flex flex-column align-items-end me-2">
+    <div>$<%= service.price %></div>
+    <div><small><%= service.to_time %></small></div>
+  </div>
+
+  <div>
+    <% if business.owner != current_user %>
+      <button class="btn btn-secondary" style="width: 75px; height: 40px;">
+        Book
+      </button>
+    <% else %>
+      <%= link_to edit_service_path(service), class: "btn btn-secondary", style: "width: 75px; height: 40px;" do %>
+        Edit
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+</li>

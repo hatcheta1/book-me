@@ -21,4 +21,15 @@
 #
 class Service < ApplicationRecord
   belongs_to :business
+
+  def to_time
+    hours = duration / 60
+    remainder = duration % 60
+
+    if remainder != 0
+      "#{hours} h #{remainder} mins"
+    else
+      "#{hours} h"
+    end
+  end
 end
