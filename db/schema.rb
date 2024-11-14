@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_06_170709) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_14_160615) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "business_id", null: false
+    t.bigint "service_id", null: false
+    t.time "start_time"
+    t.time "end_time"
+    t.date "date"
+    t.string "time_zone"
+    t.boolean "accepted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_bookings_on_business_id"
+    t.index ["client_id"], name: "index_bookings_on_client_id"
+    t.index ["service_id"], name: "index_bookings_on_service_id"
+  end
 
   create_table "business_hours", force: :cascade do |t|
     t.bigint "business_id", null: false
@@ -70,6 +86,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_06_170709) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "businesses"
+  add_foreign_key "bookings", "services"
+  add_foreign_key "bookings", "users", column: "client_id"
   add_foreign_key "business_hours", "businesses"
   add_foreign_key "businesses", "users", column: "owner_id"
   add_foreign_key "services", "businesses"

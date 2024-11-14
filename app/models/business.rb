@@ -24,4 +24,8 @@ class Business < ApplicationRecord
   has_many :business_hours
 
   has_many :services
+
+  has_many :received_bookings, class_name: "Booking"
+  
+  has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking"
 end

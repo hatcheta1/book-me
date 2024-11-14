@@ -40,4 +40,12 @@ class User < ApplicationRecord
          :confirmable
 
   has_many :businesses
+
+  has_many :sent_bookings, foreign_key: :client_id, class_name: "Booking"
+  
+  has_many :accepted_sent_bookings, -> { accepted }, foreign_key: :client_id, class_name: "Booking"
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end
