@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root "users#index"
-
+  
   devise_for :users
-
-  resources :services, except: [:index]
-  resources :business_hours
+  
+  resources :bookings
   resources :businesses
+  resources :business_hours
+  resources :services, except: [:index]
 end
