@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   resources :bookings
   resources :businesses
   resources :business_hours
-  resources :services, except: [:index]
+  resources :services
 end
