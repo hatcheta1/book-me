@@ -13,8 +13,10 @@
     </small>
 
     <div class="mt-2">
+      <% if @business.owner == current_user %>
       <%= link_to edit_business_path(@business), class: 'btn btn-secondary' do %>
         Edit business profile
+      <% end %>
       <% end %>
     </div>
   </div>
