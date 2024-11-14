@@ -5,7 +5,7 @@
 
   <div class="form-inputs">
     <%= f.association :business %>
-    <%= f.input :day_of_the_week %>
+    <%= f.select :day_of_the_week, ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] %>
     <%= f.input :opening_time %>
     <%= f.input :closing_time %>
     <%= f.input :closed %>
