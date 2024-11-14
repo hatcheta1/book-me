@@ -22,6 +22,10 @@
 class Service < ApplicationRecord
   belongs_to :business
 
+  has_many :received_bookings, class_name: "Booking"
+  
+  has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking"
+
   def to_time
     hours = duration / 60
     remainder = duration % 60
