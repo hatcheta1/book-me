@@ -12,7 +12,13 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
-    @booking = Booking.new
+    @booking = Booking.new(
+      business_id: params[:business_id],
+      service_id: params[:service_id]
+    )
+
+    @business = Business.find_by(id: params[:business_id])
+    @service = Service.find_by(id: params[:service_id])
   end
 
   # GET /bookings/1/edit
@@ -22,7 +28,15 @@ class BookingsController < ApplicationController
   # POST /bookings or /bookings.json
   def create
     @booking = Booking.new(booking_params)
-    @booking.client = current_user
+    @booking.client_id = current_user.id
+
+    @booking.business_id = params[:business_id] if params[:business_id]
+    @booking.service_id = params[:service_id] if params[:service_id]
+
+    @booking.business = Business.find_by(id: @booking.business_id)
+    @booking.service = Service.find_by(id: @booking.service_id)
+
+    @booking.end_time = @booking.start_time + @booking.service.duration.minutes
 
     respond_to do |format|
       if @booking.save
@@ -66,6 +80,6 @@ class BookingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def booking_params
-      params.require(:booking).permit(:client_id, :business_id, :service_id, :start_time, :end_time, :date, :time_zone, :accepted)
+      params.require(:booking).permit(:client_id, :business_id, :service_id, :start_time, :end_time, :date, :time_zone, :accepted, :business, :service)
     end
 end
