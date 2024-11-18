@@ -39,7 +39,9 @@ class User < ApplicationRecord
          :trackable,
          :confirmable
 
-  has_many :businesses
+  has_many :businesses, foreign_key: :owner_id
+
+  has_many :business_hours, through: :businesses
 
   has_many :sent_bookings, foreign_key: :client_id, class_name: "Booking"
   

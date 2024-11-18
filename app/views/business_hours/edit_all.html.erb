@@ -1,0 +1,12 @@
+<h1>Editing business hours</h1>
+
+<%= @business_hours.each do |business_day| %>
+
+<%= render "form", business_hour: business_day %>
+
+<% end %>
+
+<div>
+  <%= link_to "Show this business hour", @business_hour %> |
+  <%= link_to "Back to business hours", business_hours_path %>
+</div>

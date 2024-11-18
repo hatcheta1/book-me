@@ -19,6 +19,10 @@ class BusinessHoursController < ApplicationController
   def edit
   end
 
+  def edit_all
+    @business_hours = current_user.business_hours
+  end
+
   # POST /business_hours or /business_hours.json
   def create
     @business_hour = BusinessHour.new(business_hour_params)
