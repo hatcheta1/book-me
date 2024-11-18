@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Your Bookings</h1>
+
+<ul class="list-group">
+  <% @bookings.each do |booking| %>
+    <%= render 'bookings/list_group_item', booking: booking %>
+    <p>
+      <%= link_to "Show this booking", booking %>
+    </p>
+  <% end %>
+</ul>
+
+<%= link_to "New booking", new_booking_path %>

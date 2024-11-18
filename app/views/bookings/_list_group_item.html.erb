@@ -1,0 +1,17 @@
+<li class="list-group-item">
+  <div>
+    <%= booking.service.name %>
+    <% if current_user == booking.business.owner %>
+      for <%= booking.client.full_name %>
+    <% else %>
+      at <%= booking.business.name %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= booking.start_time %> - <%= booking.end_time %> on
+    <%= booking.date %>
+  </div>
+
+  <% booking.service.price %>
+</li>

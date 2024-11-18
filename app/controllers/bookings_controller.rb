@@ -1,9 +1,20 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: %i[ show edit update destroy ]
+  before_action :normalize_business_name, only: :index_for_business
 
   # GET /bookings or /bookings.json
   def index
     @bookings = Booking.all
+  end
+
+  def index_for_business
+    @business = Business.find_by(owner_id: current_user.id)
+    @bookings = @business.received_bookings
+  end
+
+  def index_for_client
+    @client = current_user
+    @bookings = @client.sent_bookings
   end
 
   # GET /bookings/1 or /bookings/1.json
@@ -82,4 +93,10 @@ class BookingsController < ApplicationController
     def booking_params
       params.require(:booking).permit(:client_id, :business_id, :service_id, :start_time, :end_time, :date, :time_zone, :accepted, :business, :service)
     end
+
+  def normalize_business_name
+    if params[:business_name].include?(" ")
+      redirect_to business_bookings_path(business_name: params[:business_name].tr(" ", "_")), status: :moved_permanently
+    end
+  end
 end
