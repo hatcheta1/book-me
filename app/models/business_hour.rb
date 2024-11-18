@@ -21,4 +21,13 @@
 #
 class BusinessHour < ApplicationRecord
   belongs_to :business
+
+  has_one :owner, through: :business
+
+  DAYS_OF_THE_WEEK = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
+
+  validates :day_of_the_week, inclusion: { in: DAYS_OF_THE_WEEK }
+  validates :day_of_the_week, uniqueness: { scope: :business_id, message: "should only have one entry per business day" }
+
+  validates :opening_time, :closing_time, presence: true, if: -> { !closed }
 end
