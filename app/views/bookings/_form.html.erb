@@ -9,11 +9,9 @@
     <%= f.hidden_field :service_id, value: @booking.service_id %>
     <%= f.association :business, selected: @booking.business_id %>
     <%= f.association :service, selected: @booking.service_id %>
-    <!-- TODO: ensure service time fits within business hours 
-    and ensure there is not an overlapping booking -->
+    <%= f.input :date %>
     <%= f.input :start_time %>
     <%= f.hidden_field :end_time %>
-    <%= f.input :date %>
     <%= f.input :time_zone %>
     <%= f.input :accepted %>
   </div>
