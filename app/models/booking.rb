@@ -36,4 +36,12 @@ class Booking < ApplicationRecord
   has_many :received_bookings, class_name: "Booking"
   
   has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking"
+
+  def format_time(time)
+    time.strftime("%l:%M %P")
+  end
+
+  def format_date
+    date.strftime("%B %e, %Y")
+  end
 end

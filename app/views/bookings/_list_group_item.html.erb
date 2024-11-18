@@ -9,8 +9,8 @@
   </div>
 
   <div>
-    <%= booking.start_time %> - <%= booking.end_time %> on
-    <%= booking.date %>
+    <%= booking.format_time(booking.start_time) %> - <%= booking.format_time(booking.end_time) %> on
+    <%= booking.format_date %>
   </div>
 
   <% booking.service.price %>
