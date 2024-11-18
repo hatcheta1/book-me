@@ -23,8 +23,8 @@
             <ul class="dropdown-menu">
 
               <li><%= link_to "Your Bookings", client_bookings_path(current_user.username), class: "dropdown-item" %></li>
-              <!-- TODO: address when a user has multiple businesses -->
-              <li><%= link_to "Your Business Bookings", business_bookings_path(current_user.businesses.first.name), class: "dropdown-item" %></li>
+              <!-- TODO: address when a user has multiple businesses OR when a user is not a business owner -->
+              <li><%= link_to "#{current_user.businesses.first.name} Bookings", business_bookings_path(current_user.businesses.first.name), class: "dropdown-item" %></li>
               </ul>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

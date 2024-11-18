@@ -1,4 +1,4 @@
-<li class="list-group-item">
+<a href="/bookings/<%= booking.id %>" class="list-group-item">
   <div>
     <%= booking.service.name %>
     <% if current_user == booking.business.owner %>
@@ -14,4 +14,4 @@
   </div>
 
   <% booking.service.price %>
-</li>
+</a>
