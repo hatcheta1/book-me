@@ -26,7 +26,6 @@
       <div class="card-header d-flex align-itmes-center justify-content-between">
         Hours
         <% if @business.owner == current_user %>
-          <!-- TODO: change this link to a page to edit all hours -->
           <%= link_to business_hours_path, class: "btn btn-secondary" do %>
             Edit business hours
           <% end %>
@@ -67,10 +66,3 @@
     <%= render 'services/list_group_item', service: service, business: @business %>
   <% end %>
 </ul>
-
-<div class="mt-3">
-  <%= link_to "Edit business profile", edit_business_path(@business) %> |
-  <%= link_to "Back to businesses", businesses_path %>
-
-  <%= button_to "Destroy this business", @business, method: :delete %>
-</div>
