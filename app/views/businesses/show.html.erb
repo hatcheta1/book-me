@@ -38,8 +38,8 @@
           <% if !day_hours.closed %>
             <li class="list-group-item">
               <%= day_hours.day_of_the_week %>:
-              <%= day_hours.opening_time.strftime("%l:%M") %> am - 
-              <%= day_hours.opening_time.strftime("%l:%M") %> pm
+              <%= day_hours.opening_time.strftime("%l:%M %P") %> - 
+              <%= day_hours.closing_time.strftime("%l:%M %P") %>
             </li>
 
             <% else %>

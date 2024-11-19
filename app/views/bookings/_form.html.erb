@@ -4,12 +4,14 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.hidden_field :client %>
-    <%= f.association :business %>
-    <%= f.association :service %>
-    <%= f.input :start_time %>
-    <%= f.input :end_time %>
+    <%= f.hidden_field :client, value: current_user.id %>
+    <%= f.hidden_field :business_id, value: @booking.business_id %>
+    <%= f.hidden_field :service_id, value: @booking.service_id %>
+    <%= f.association :business, selected: @booking.business_id %>
+    <%= f.association :service, selected: @booking.service_id %>
     <%= f.input :date %>
+    <%= f.input :start_time %>
+    <%= f.hidden_field :end_time %>
     <%= f.input :time_zone %>
     <%= f.input :accepted %>
   </div>
