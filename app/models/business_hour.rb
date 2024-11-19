@@ -30,4 +30,8 @@ class BusinessHour < ApplicationRecord
   validates :day_of_the_week, uniqueness: { scope: :business_id, message: "should only have one entry per business day" }
 
   validates :opening_time, :closing_time, presence: true, if: -> { !closed }
+
+  def format_time(time)
+    time.strftime("%l:%M %P")
+  end
 end
