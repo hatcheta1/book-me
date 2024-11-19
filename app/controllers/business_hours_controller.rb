@@ -3,7 +3,7 @@ class BusinessHoursController < ApplicationController
 
   # GET /business_hours or /business_hours.json
   def index
-    @business_hours = BusinessHour.all
+    @business_hours = current_user.business_hours
   end
 
   # GET /business_hours/1 or /business_hours/1.json
@@ -17,10 +17,6 @@ class BusinessHoursController < ApplicationController
 
   # GET /business_hours/1/edit
   def edit
-  end
-
-  def edit_all
-    @business_hours = current_user.business_hours
   end
 
   # POST /business_hours or /business_hours.json

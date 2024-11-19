@@ -1,10 +1,5 @@
 <div id="<%= dom_id business_hour %>">
   <p>
-    <strong>Business:</strong>
-    <%= business_hour.business_id %>
-  </p>
-
-  <p>
     <strong>Day of the week:</strong>
     <%= business_hour.day_of_the_week %>
   </p>
@@ -22,6 +17,10 @@
   <p>
     <strong>Closed:</strong>
     <%= business_hour.closed %>
+  </p>
+
+  <p>
+    <%= link_to "Edit", edit_business_hour_path(business_hour), class: "btn btn-secondary" %>
   </p>
 
 </div>

@@ -27,7 +27,7 @@
         Hours
         <% if @business.owner == current_user %>
           <!-- TODO: change this link to a page to edit all hours -->
-          <%= link_to edit_all_business_hours_path, method: :patch, class: "btn btn-secondary" do %>
+          <%= link_to business_hours_path, class: "btn btn-secondary" do %>
             Edit business hours
           <% end %>
         <% end %>

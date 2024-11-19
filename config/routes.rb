@@ -5,10 +5,6 @@ Rails.application.routes.draw do
   
   resources :bookings
   resources :businesses
-  resources :business_hours do
-    collection do
-      patch :edit_all
-    end
-  end
+  resources :business_hours
   resources :services
 end

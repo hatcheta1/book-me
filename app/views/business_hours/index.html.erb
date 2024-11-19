@@ -3,12 +3,17 @@
 <h1>Business hours</h1>
 
 <div id="business_hours">
+  <div class="row">
   <% @business_hours.each do |business_hour| %>
+  <div class="col-sm-4">
+  <div class="card mb-3">
+    <div class="card-body">
     <%= render business_hour %>
-    <p>
-      <%= link_to "Show this business hour", business_hour %>
-    </p>
+    </div>
+    </div>
+  </div>
   <% end %>
+  </div>
 </div>
 
 <%= link_to "New business hour", new_business_hour_path %>
