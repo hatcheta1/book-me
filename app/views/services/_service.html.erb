@@ -1,11 +1,6 @@
-<div id="<%= dom_id service %>">
+<div id="<%= dom_id service %>" class="list-group-item">
   <p>
-    <strong>Business:</strong>
-    <%= service.business_id %>
-  </p>
-
-  <p>
-    <strong>Name:</strong>
+    <strong>Service:</strong>
     <%= service.name %>
   </p>
 
@@ -16,12 +11,15 @@
 
   <p>
     <strong>Duration:</strong>
-    <%= service.duration %>
+    <%= service.to_time %>
   </p>
 
   <p>
     <strong>Price:</strong>
-    <%= service.price %>
+    $<%= service.price %>
   </p>
 
+  <p>
+  <%= link_to "Edit", edit_service_path(service), class: "btn btn-secondary" %>
+  </p>
 </div>
