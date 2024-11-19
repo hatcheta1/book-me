@@ -1,0 +1,17 @@
+<a href="/bookings/<%= booking.id %>" class="list-group-item">
+  <div>
+    <%= booking.service.name %>
+    <% if current_user == booking.business.owner %>
+      for <%= booking.client.full_name %>
+    <% else %>
+      at <%= booking.business.name %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= booking.format_time(booking.start_time) %> - <%= booking.format_time(booking.end_time) %> on
+    <%= booking.format_date %>
+  </div>
+
+  <% booking.service.price %>
+</a>

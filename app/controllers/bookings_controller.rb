@@ -1,9 +1,20 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: %i[ show edit update destroy ]
+  before_action :normalize_business_name, only: :index_for_business
 
   # GET /bookings or /bookings.json
   def index
     @bookings = Booking.all
+  end
+
+  def index_for_business
+    @business = Business.find_by(owner_id: current_user.id)
+    @bookings = @business.received_bookings
+  end
+
+  def index_for_client
+    @client = current_user
+    @bookings = @client.sent_bookings
   end
 
   # GET /bookings/1 or /bookings/1.json
@@ -12,7 +23,13 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
-    @booking = Booking.new
+    @booking = Booking.new(
+      business_id: params[:business_id],
+      service_id: params[:service_id]
+    )
+
+    @business = Business.find_by(id: params[:business_id])
+    @service = Service.find_by(id: params[:service_id])
   end
 
   # GET /bookings/1/edit
@@ -22,11 +39,19 @@ class BookingsController < ApplicationController
   # POST /bookings or /bookings.json
   def create
     @booking = Booking.new(booking_params)
-    @booking.client = current_user
+    @booking.client_id = current_user.id
+
+    @booking.business_id = params[:business_id] if params[:business_id]
+    @booking.service_id = params[:service_id] if params[:service_id]
+
+    @booking.business = Business.find_by(id: @booking.business_id)
+    @booking.service = Service.find_by(id: @booking.service_id)
+
+    @booking.end_time = @booking.start_time + @booking.service.duration.minutes
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
+        format.html { redirect_to bookings_path, notice: "Booking was successfully created." }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -66,6 +91,12 @@ class BookingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def booking_params
-      params.require(:booking).permit(:client_id, :business_id, :service_id, :start_time, :end_time, :date, :time_zone, :accepted)
+      params.require(:booking).permit(:client_id, :business_id, :service_id, :start_time, :end_time, :date, :time_zone, :accepted, :business, :service)
     end
+
+  def normalize_business_name
+    if params[:business_name].include?(" ")
+      redirect_to business_bookings_path(business_name: params[:business_name].tr(" ", "_")), status: :moved_permanently
+    end
+  end
 end
