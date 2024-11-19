@@ -1,19 +1,11 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Business hours</h1>
+<h1 class="mb-3"><%= @business_hours.first.business.name %> Hours</h1>
 
 <div id="business_hours">
-  <div class="row">
-  <% @business_hours.each do |business_hour| %>
-  <div class="col-sm-4">
-  <div class="card mb-3">
-    <div class="card-body">
-    <%= render business_hour %>
-    </div>
-    </div>
-  </div>
-  <% end %>
-  </div>
+  <ul class="list-group">
+    <% @business_hours.each do |business_hour| %>
+      <%= render business_hour %>
+    <% end %>
+  </ul>
 </div>
-
-<%= link_to "New business hour", new_business_hour_path %>

@@ -1,26 +1,17 @@
-<div id="<%= dom_id business_hour %>">
+<div id="<%= dom_id business_hour %>" class="list-group-item d-flex justify-content-between align-items-center">
+  <div>
+    <p>
+      <strong><%= business_hour.day_of_the_week %>:</strong>
+      <% if !business_hour.closed %>
+        <%= business_hour.format_time(business_hour.opening_time) %> -
+        <%= business_hour.format_time(business_hour.closing_time) %>
+    </p>
+      <% else %>
+        Closed
+    </p>
+      <% end %>
+  </div>
   <p>
-    <strong>Day of the week:</strong>
-    <%= business_hour.day_of_the_week %>
+  <%= link_to "Edit", edit_business_hour_path(business_hour), class: "btn btn-secondary" %>
   </p>
-
-  <p>
-    <strong>Opening time:</strong>
-    <%= business_hour.opening_time %>
-  </p>
-
-  <p>
-    <strong>Closing time:</strong>
-    <%= business_hour.closing_time %>
-  </p>
-
-  <p>
-    <strong>Closed:</strong>
-    <%= business_hour.closed %>
-  </p>
-
-  <p>
-    <%= link_to "Edit", edit_business_hour_path(business_hour), class: "btn btn-secondary" %>
-  </p>
-
 </div>
