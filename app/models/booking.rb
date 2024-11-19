@@ -37,6 +37,8 @@ class Booking < ApplicationRecord
   
   has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking"
 
+  validates :start_time, :end_time, presence: true
+
   def format_time(time)
     time.strftime("%l:%M %P")
   end

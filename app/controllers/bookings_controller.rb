@@ -38,6 +38,8 @@ class BookingsController < ApplicationController
 
   # POST /bookings or /bookings.json
   def create
+    @business = Business.find_by(id: params[:business_id])
+    
     @booking = Booking.new(booking_params)
     @booking.client_id = current_user.id
 
