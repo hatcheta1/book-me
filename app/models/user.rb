@@ -31,17 +31,19 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, and :omniauthable
+  # TODO: add confirmable back when email is configured
   devise :database_authenticatable, 
          :registerable,
          :recoverable, 
          :rememberable, 
          :validatable,
-         :trackable,
-         :confirmable
+         :trackable
 
   has_many :businesses, foreign_key: :owner_id
 
   has_many :business_hours, through: :businesses
+
+  has_many :services, through: :businesses
 
   has_many :sent_bookings, foreign_key: :client_id, class_name: "Booking"
   

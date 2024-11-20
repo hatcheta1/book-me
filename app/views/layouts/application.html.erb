@@ -13,7 +13,11 @@
   </head>
 
   <body>
-    <%= render "shared/navbar" %>
+    <% if user_signed_in? && current_user.businesses.present? %>
+      <%= render "shared/business_owner_navbar" %>
+    <% else %>
+      <%= render "shared/client_navbar" %>
+    <% end %>
 
     <div class="container">
       <% if notice.present? %>

@@ -2,13 +2,14 @@
 
 <h1>Services</h1>
 
-<div id="services">
-  <% @services.each do |service| %>
-    <%= render service %>
-    <p>
-      <%= link_to "Show this service", service %>
-    </p>
-  <% end %>
-</div>
+<%= link_to new_service_path, class: 'mb-3 btn btn-primary' do %>
+      Add a service
+    <% end %>
 
-<%= link_to "New service", new_service_path %>
+<div id="services">
+  <ul class="list-group">
+    <% @services.each do |service| %>
+      <%= render service %>
+    <% end %>
+  </ul>
+</div>
