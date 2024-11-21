@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_14_160615) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_21_234045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,13 +18,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_160615) do
     t.bigint "client_id", null: false
     t.bigint "business_id", null: false
     t.bigint "service_id", null: false
-    t.time "start_time"
-    t.time "end_time"
-    t.date "date"
-    t.string "time_zone"
     t.boolean "accepted"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "started_at"
+    t.datetime "ended_at"
     t.index ["business_id"], name: "index_bookings_on_business_id"
     t.index ["client_id"], name: "index_bookings_on_client_id"
     t.index ["service_id"], name: "index_bookings_on_service_id"
@@ -82,6 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_14_160615) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "time_zone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
