@@ -60,7 +60,10 @@ class Booking < ApplicationRecord
   
   # Validation logic for booking time
   def validate_booking_time(business, proposed_started_at, proposed_ended_at)
-    bookings = business.accepted_received_bookings
+    business_bookings = business.accepted_received_bookings
+    client_bookings = client.accepted_sent_bookings
+
+    bookings = business_bookings + client_bookings
     
     bookings.none? do |booking|
       (proposed_started_at < booking.ended_at) && (proposed_ended_at > booking.started_at)

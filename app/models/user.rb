@@ -48,7 +48,7 @@ class User < ApplicationRecord
 
   has_many :sent_bookings, foreign_key: :client_id, class_name: "Booking"
   
-  has_many :accepted_sent_bookings, -> { accepted }, foreign_key: :client_id, class_name: "Booking"
+  has_many :accepted_sent_bookings, -> { where accepted: true }, foreign_key: :client_id, class_name: "Booking"
 
   has_many :received_bookings, foreign_key: :owner_id, class_name: "Booking"
   
