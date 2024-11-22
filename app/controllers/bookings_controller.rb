@@ -1,20 +1,17 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: %i[ show edit update destroy ]
   before_action :normalize_business_name, only: :index_for_business
+  before_action :authorize_booking, except: [:index_for_business, :index_for_client, :new, :create]
+  before_action :authorize_booking_scope, only: [:index_for_business, :index_for_client]
 
-  # GET /bookings or /bookings.json
-  def index
-    @bookings = Booking.all
-  end
 
   def index_for_business
-    @business = Business.find_by(owner_id: current_user.id)
-    @bookings = @business.received_bookings
+    @business = current_user.businesses.first
+    @bookings = policy_scope(@business.received_bookings)
   end
 
   def index_for_client
-    @client = current_user
-    @bookings = @client.sent_bookings
+    @bookings = policy_scope(current_user.sent_bookings)
   end
 
   # GET /bookings/1 or /bookings/1.json
@@ -87,7 +84,19 @@ class BookingsController < ApplicationController
 
   def normalize_business_name
     if params[:business_name].include?(" ")
-      redirect_to business_bookings_path(business_name: params[:business_name].tr(" ", "_")), status: :moved_permanently
+      redirect_to business_bookings_path(business_name: params[:business_name].tr(" ", "")), status: :moved_permanently
+    end
+  end
+
+  def authorize_booking
+    authorize(@booking)
+  end
+  
+  def authorize_booking_scope
+    if action_name == "index_for_business"
+      authorize Booking, :index_for_business?
+    elsif action_name == "index_for_client"
+      authorize Booking, :index_for_client?
     end
   end
 end

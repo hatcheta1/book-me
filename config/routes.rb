@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   devise_for :users
   
-  resources :bookings
+  resources :bookings, except: :index
   resources :businesses
   resources :business_hours
   resources :services
