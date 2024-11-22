@@ -1,17 +1,30 @@
-<a href="/bookings/<%= booking.id %>" class="list-group-item">
+<a href="/bookings/<%= booking.id %>" class="list-group-item d-flex justify-content-between align-items-center">
   <div>
-    <%= booking.service.name %>
-    <% if current_user == booking.business.owner %>
-      for <%= booking.client.full_name %>
+    <div>
+      <%= booking.service.name %>
+      <% if current_user == booking.business.owner %>
+        for <%= booking.client.full_name %>
+      <% else %>
+        at <%= booking.business.name %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= booking.format_time(booking.started_at) %> - <%= booking.format_time(booking.ended_at) %> on
+      <%= booking.format_date(booking.started_at) %>
+    </div>
+
+    <div>
+      Price: $<%= booking.service.price %>
+    </div>
+  </div>
+
+<!-- TODO: Add denied badge after adding ability to deny bookings -->
+  <div class="text-end">
+    <% if booking.accepted? %>
+      <span class="badge bg-success">Accepted</span>
     <% else %>
-      at <%= booking.business.name %>
+      <span class="badge bg-warning text-dark">Pending</span>
     <% end %>
   </div>
-
-  <div>
-    <%= booking.format_time(booking.started_at) %> - <%= booking.format_time(booking.ended_at) %> on
-    <%= booking.format_date(booking.started_at) %>
-  </div>
-
-  <% booking.service.price %>
 </a>
