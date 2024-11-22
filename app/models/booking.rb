@@ -34,6 +34,7 @@ class Booking < ApplicationRecord
   validates :started_at, :ended_at, presence: true
 
   validate :time_slot_availability, on: :create
+  validate :within_business_hours, on: :create
 
   before_validation :ensure_ended_at_has_value
 
@@ -68,6 +69,35 @@ class Booking < ApplicationRecord
     bookings.none? do |booking|
       (proposed_started_at < booking.ended_at) && (proposed_ended_at > booking.started_at)
     end
+  end
+
+  # Ensure the booking fits within the business's operating hours
+  def within_business_hours
+    return unless business && started_at && ended_at
+
+    # Get the day of the week for the booking
+    day_of_week = started_at.strftime("%A")
+    
+    # Find the business hours for that day
+    business_hour = business.business_hours.find_by(day_of_the_week: day_of_week)
+
+    if business_hour.nil?
+      errors.add(:base, "The business is closed on #{day_of_week}.")
+      return
+    end
+
+    # Validate against the business's open and close times
+    if business_hour.closed
+      errors.add(:base, "The business is closed on #{day_of_week}.")
+    elsif started_at < start_time_on_day(business_hour.opening_time) ||
+    ended_at > start_time_on_day(business_hour.closing_time)
+      errors.add(:base, "The booking time is outside the business hours for #{day_of_week}.")
+    end
+  end
+
+  # Helper to adjust the time to the same day as the booking's start_time
+  def start_time_on_day(business_time)
+    started_at.to_date.to_datetime + business_time.seconds_since_midnight.seconds
   end
 
   def ensure_ended_at_has_value
