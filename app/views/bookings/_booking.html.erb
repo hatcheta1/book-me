@@ -16,22 +16,17 @@
 
   <p>
     <strong>Start time:</strong>
-    <%= booking.start_time %>
+    <%= booking.format_time(booking.started_at) %>
   </p>
 
   <p>
     <strong>End time:</strong>
-    <%= booking.end_time %>
+    <%= booking.format_time(booking.ended_at) %>
   </p>
 
   <p>
     <strong>Date:</strong>
-    <%= booking.date %>
-  </p>
-
-  <p>
-    <strong>Time zone:</strong>
-    <%= booking.time_zone %>
+    <%= booking.format_date(booking.started_at) %>
   </p>
 
   <p>

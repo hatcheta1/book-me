@@ -18,6 +18,7 @@
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  sign_in_count          :integer          default(0), not null
+#  time_zone              :string
 #  unconfirmed_email      :string
 #  username               :string
 #  created_at             :datetime         not null
@@ -48,6 +49,10 @@ class User < ApplicationRecord
   has_many :sent_bookings, foreign_key: :client_id, class_name: "Booking"
   
   has_many :accepted_sent_bookings, -> { accepted }, foreign_key: :client_id, class_name: "Booking"
+
+  has_many :received_bookings, foreign_key: :owner_id, class_name: "Booking"
+  
+  has_many :accepted_received_bookings, ->{ :accepted }, foreign_key: :owner_id, class_name: "Booking"
 
   def full_name
     "#{first_name} #{last_name}"
