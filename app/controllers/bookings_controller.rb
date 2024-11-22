@@ -38,16 +38,7 @@ class BookingsController < ApplicationController
 
   # POST /bookings or /bookings.json
   def create
-    @booking = Booking.new(booking_params)
-    @booking.client_id = current_user.id
-
-    @booking.business_id = params[:business_id] if params[:business_id]
-    @booking.service_id = params[:service_id] if params[:service_id]
-
-    @booking.business = Business.find_by(id: @booking.business_id)
-    @booking.service = Service.find_by(id: @booking.service_id)
-
-    @booking.end_time = @booking.start_time + @booking.service.duration.minutes
+    @booking = current_user.sent_bookings.new(booking_params)
 
     respond_to do |format|
       if @booking.save
@@ -84,15 +75,15 @@ class BookingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_booking
-      @booking = Booking.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_booking
+    @booking = Booking.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def booking_params
-      params.require(:booking).permit(:client_id, :business_id, :service_id, :start_time, :end_time, :date, :time_zone, :accepted, :business, :service)
-    end
+  # Only allow a list of trusted parameters through.
+  def booking_params
+    params.require(:booking).permit(:client_id, :business_id, :service_id, :started_at, :ended_at, :accepted, :client, :business, :service)
+  end
 
   def normalize_business_name
     if params[:business_name].include?(" ")

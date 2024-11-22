@@ -26,12 +26,21 @@ class BusinessHour < ApplicationRecord
 
   DAYS_OF_THE_WEEK = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
 
+  validates :day_of_the_week, :opening_time, :closing_time, presence: true, if: -> { !closed }
   validates :day_of_the_week, inclusion: { in: DAYS_OF_THE_WEEK }
   validates :day_of_the_week, uniqueness: { scope: :business_id, message: "should only have one entry per business day" }
 
-  validates :opening_time, :closing_time, presence: true, if: -> { !closed }
+  validate :valid_time_range
 
   def format_time(time)
     time.strftime("%l:%M %P")
+  end
+
+  private
+
+  def valid_time_range
+    if opening_time >= closing_time
+      errors.add(:base, "Opening time must be before closing time.")
+    end
   end
 end
