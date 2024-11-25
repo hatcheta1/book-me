@@ -46,6 +46,12 @@
   </div>
 <% end %>
 
+<h3>Add a business</h3>
+  Do you have a business that you want to add to BookMe?
+<div>
+  <%= link_to "Add a business", new_business_path, class: "btn btn-primary" %>
+</div>
+
 <h3>Cancel my account</h3>
 
 <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
