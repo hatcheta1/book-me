@@ -19,12 +19,26 @@
     </div>
   </div>
 
-<!-- TODO: Add denied badge after adding ability to deny bookings -->
   <div class="text-end">
-    <% if booking.accepted? %>
-      <span class="badge bg-success">Accepted</span>
+    <% if current_user == booking.business.owner %>
+      <% if booking.status == "pending" %>
+        <%= button_to "Accept", accept_booking_path(booking), method: :patch, class: "btn btn-success btn-sm mb-1" %>
+        <%= button_to "Decline", decline_booking_path(booking), method: :patch, class: "btn btn-danger btn-sm" %>
+      <% else %>
+        <% if booking.status == "accepted" %>
+          <span class="badge bg-success">Accepted</span>
+        <% elsif booking.status == "declined" %>
+          <span class="badge bg-danger">Declined</span>
+        <% end %>
+      <% end %>
     <% else %>
-      <span class="badge bg-warning text-dark">Pending</span>
+      <% if booking.status == "pending" %>
+        <span class="badge bg-warning text-dark">Pending</span>
+      <% elsif booking.status == "accepted" %>
+        <span class="badge bg-success">Accepted</span>
+      <% elsif booking.status == "declined" %>
+        <span class="badge bg-danger">Declined</span>
+      <% end %>
     <% end %>
   </div>
 </a>
