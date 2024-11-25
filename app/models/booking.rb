@@ -3,9 +3,9 @@
 # Table name: bookings
 #
 #  id          :bigint           not null, primary key
-#  accepted    :boolean
 #  ended_at    :datetime
 #  started_at  :datetime
+#  status      :integer          default("pending"), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  business_id :bigint           not null
@@ -37,6 +37,8 @@ class Booking < ApplicationRecord
   validate :within_business_hours, on: :create
 
   before_validation :ensure_ended_at_has_value
+
+  enum status: { pending: 0, accepted: 1, declined: 2 }, _default: :pending
 
   def format_time(time)
     time.strftime("%l:%M %P")

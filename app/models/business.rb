@@ -27,7 +27,7 @@ class Business < ApplicationRecord
 
   has_many :received_bookings, class_name: "Booking"
   
-  has_many :accepted_received_bookings, -> { where accepted: true }, class_name: "Booking"
+  has_many :accepted_received_bookings, -> { where status: accepted }, class_name: "Booking"
 
   validates :name, presence: true
 end
