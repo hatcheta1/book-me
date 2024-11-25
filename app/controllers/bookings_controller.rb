@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: %i[ show edit update destroy ]
+  before_action :set_booking, only: %i[ show edit update destroy accept decline ]
   before_action :normalize_business_name, only: :index_for_business
 
   # GET /bookings or /bookings.json
@@ -74,6 +74,16 @@ class BookingsController < ApplicationController
     end
   end
 
+  def accept
+    @booking.update!(status: :accepted)
+    redirect_to business_bookings_path(@booking.business.name), notice: "Booking accepted successfully."
+  end
+
+  def decline
+    @booking.update!(status: :declined)
+    redirect_to business_bookings_path(@booking.business.name), alert: "Booking declined."
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_booking
@@ -82,7 +92,7 @@ class BookingsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def booking_params
-    params.require(:booking).permit(:client_id, :business_id, :service_id, :started_at, :ended_at, :accepted, :client, :business, :service)
+    params.require(:booking).permit(:client_id, :business_id, :service_id, :started_at, :ended_at, :client, :business, :service, :status)
   end
 
   def normalize_business_name

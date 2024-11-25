@@ -48,11 +48,11 @@ class User < ApplicationRecord
 
   has_many :sent_bookings, foreign_key: :client_id, class_name: "Booking"
   
-  has_many :accepted_sent_bookings, -> { where accepted: true }, foreign_key: :client_id, class_name: "Booking"
+  has_many :accepted_sent_bookings, -> { where status: accepted}, foreign_key: :client_id, class_name: "Booking"
 
   has_many :received_bookings, foreign_key: :owner_id, class_name: "Booking"
   
-  has_many :accepted_received_bookings, ->{ :accepted }, foreign_key: :owner_id, class_name: "Booking"
+  has_many :accepted_received_bookings, -> { where status: accepted }, foreign_key: :owner_id, class_name: "Booking"
 
   def full_name
     "#{first_name} #{last_name}"
