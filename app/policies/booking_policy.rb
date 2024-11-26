@@ -3,19 +3,19 @@ class BookingPolicy < ApplicationPolicy
 
   def initialize(user, booking)
     @user = user
-    @booking = booking unless booking.is_a?(Class)
+    @booking = booking # unless booking.is_a?(Class)
   end
 
   def index_for_business?
-    user.businesses.exists?
+    user.businesses.exists? && user == @booking.business.owner
   end
 
   def index_for_client?
-    user.sent_bookings.exists?
+    true
   end
 
   def show?
-    index_for_business? || index_for_client?
+    user == @booking.business.owner || user == @booking.client
   end
 
   def new?
@@ -23,7 +23,7 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def edit?
-    index_for_business?
+    user == @booking.business.owner
   end
 
   def create?
@@ -35,7 +35,15 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def destroy?
-    index_for_business?
+    show?
+  end
+
+  def accept?
+    edit?
+  end
+
+  def decline?
+    edit?
   end
 
   class Scope
@@ -49,7 +57,7 @@ class BookingPolicy < ApplicationPolicy
     def resolve
       if user.businesses.exists?
         scope.where(business: user.businesses)
-      elsif user.bookings.exists?
+      elsif user.sent_bookings.exists?
         scope.where(client: user)
       else
         scope.none

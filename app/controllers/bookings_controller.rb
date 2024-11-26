@@ -39,7 +39,7 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to bookings_path, notice: "Booking was successfully created." }
+        format.html { redirect_to client_bookings_path(current_user.username), notice: "Booking was successfully created." }
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new, status: :unprocessable_entity }
