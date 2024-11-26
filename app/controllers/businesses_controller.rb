@@ -2,7 +2,6 @@ class BusinessesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_business, only: %i[ show edit update destroy ]
   before_action :authorize_business, except: :index
-  skip_after_action :verify_policy_scoped, only: :index
 
   # GET /businesses or /businesses.json
   def index
