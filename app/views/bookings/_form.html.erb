@@ -4,12 +4,21 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.hidden_field :client_id, value: current_user.id %>
+    <% if current_user.businesses.exists?(id: @booking.business_id) %>
+      <%= f.input :client_id, 
+                  collection: User.all.map { |u| [u.full_name, u.id] }, 
+                  label: "Select Client", 
+                  include_blank: "Choose a client" %>
+      <%= f.input :service_id, 
+                  collection: @business.services.map { |s| [s.name, s.id] }, 
+                  label: "Select Service", 
+                  include_blank: "Choose a service" %>
+    <% else %>
+      <%= f.hidden_field :client_id, value: current_user.id %>
+      <%= f.hidden_field :service_id, value: @booking.service_id %>
+    <% end %>
+  
     <%= f.hidden_field :business_id, value: @booking.business_id %>
-    <%= f.hidden_field :service_id, value: @booking.service_id %>
-    <%= f.association :client, selected: current_user %>
-    <%= f.association :business, selected: @booking.business_id %>
-    <%= f.association :service, selected: @booking.service_id %>
     <%= f.input :started_at %>
     <%= f.hidden_field :ended_at %>
   </div>

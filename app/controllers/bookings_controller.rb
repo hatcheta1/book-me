@@ -29,7 +29,7 @@ class BookingsController < ApplicationController
     )
 
     @business = Business.find_by(id: params[:business_id])
-    @service = Service.find_by(id: params[:service_id])
+    @services = @business.services if @business.present?
   end
 
   # GET /bookings/1/edit
@@ -38,7 +38,12 @@ class BookingsController < ApplicationController
 
   # POST /bookings or /bookings.json
   def create
-    @booking = current_user.sent_bookings.new(booking_params)
+    if current_user.businesses.exists?(id: booking_params[:business_id])
+      @booking = Booking.new(booking_params)
+      @booking.status = :accepted
+    else
+      @booking = current_user.sent_bookings.new(booking_params)
+    end
 
     respond_to do |format|
       if @booking.save
