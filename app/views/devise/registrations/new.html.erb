@@ -36,6 +36,11 @@
     <%= f.text_field :last_name, autofocus: true %>
   </div>
 
+  <div class="field">
+    <%= f.label :profile_picture %><br />
+    <%= f.file_field :profile_picture, autofocus: true %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
