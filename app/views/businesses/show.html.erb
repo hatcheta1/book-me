@@ -9,7 +9,9 @@
     </div>
 
     <small>
-      <b>Owner:</b> <%= @business.owner.full_name %>
+      <b>Owner: </b>
+      <%= image_tag @business.owner.profile_picture if @business.owner.profile_picture.attached? %>
+      <%= @business.owner.full_name %>
     </small>
 
     <div class="mt-2">

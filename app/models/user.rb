@@ -39,6 +39,8 @@ class User < ApplicationRecord
          :rememberable, 
          :validatable,
          :trackable
+  
+  has_one_attached :profile_picture
 
   has_many :businesses, foreign_key: :owner_id
 
