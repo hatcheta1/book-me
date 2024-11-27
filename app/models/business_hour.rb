@@ -30,7 +30,7 @@ class BusinessHour < ApplicationRecord
   validates :day_of_the_week, inclusion: { in: DAYS_OF_THE_WEEK }
   validates :day_of_the_week, uniqueness: { scope: :business_id, message: "should only have one entry per business day" }
 
-  validate :valid_time_range
+  validate :valid_time_range, if: -> { !closed }
 
   def format_time(time)
     time.strftime("%l:%M %P")
