@@ -1,5 +1,7 @@
 class BusinessesController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_business, only: %i[ show edit update destroy ]
+  before_action :authorize_business, except: :index
 
   # GET /businesses or /businesses.json
   def index
@@ -70,5 +72,9 @@ class BusinessesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def business_params
       params.require(:business).permit(:owner_id, :name, :address, :about, :logo)
+    end
+
+    def authorize_business
+      authorize(@business || Business)
     end
 end

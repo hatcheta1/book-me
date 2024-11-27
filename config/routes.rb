@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   
   devise_for :users
   
-  resources :bookings do
+  resources :bookings, except: :index do
     member do
       patch :accept
       patch :decline
