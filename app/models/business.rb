@@ -33,7 +33,7 @@ class Business < ApplicationRecord
 
   validates :name, presence: true
 
-  def timezone
+  def time_zone
     owner.time_zone || "UTC"
   end
 end

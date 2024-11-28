@@ -33,7 +33,15 @@ class BusinessHour < ApplicationRecord
   validate :valid_time_range, if: -> { !closed }
 
   def format_time(time)
-    time.strftime("%l:%M %P")
+    time.strftime("%l:%M %P %Z")
+  end
+
+  def adjusted_opening_time
+    business_time_to_timezone(opening_time)
+  end
+  
+  def adjusted_closing_time
+    business_time_to_timezone(closing_time)
   end
 
   private
@@ -41,6 +49,14 @@ class BusinessHour < ApplicationRecord
   def valid_time_range
     if opening_time >= closing_time
       errors.add(:base, "Opening time must be before closing time.")
+    end
+  end
+
+  def business_time_to_timezone(time)
+    return time unless business.owner.time_zone
+  
+    Time.use_zone(business.owner.time_zone) do
+      Time.zone.parse(time.strftime("%H:%M"))
     end
   end
 end
