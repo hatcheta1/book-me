@@ -32,4 +32,8 @@ class Business < ApplicationRecord
   has_many :accepted_received_bookings, -> { where status: accepted }, class_name: "Booking"
 
   validates :name, presence: true
+
+  def timezone
+    owner.time_zone || "UTC"
+  end
 end

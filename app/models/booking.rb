@@ -37,6 +37,7 @@ class Booking < ApplicationRecord
   validate :within_business_hours, on: :create
 
   before_validation :ensure_ended_at_has_value
+  before_validation :convert_times_to_business_timezone
 
   enum status: { pending: 0, accepted: 1, declined: 2 }, _default: :pending
 
@@ -106,6 +107,14 @@ class Booking < ApplicationRecord
     if ended_at.blank?
       self.ended_at = started_at + service.duration.minutes
     end
+  end
+
+  def convert_times_to_business_timezone
+    return unless business
+
+    tz = ActiveSupport::TimeZone[business.timezone]
+    started_at = tz.parse(started_at.to_s) if started_at.present?
+    ended_at = tz.parse(ended_at.to_s) if ended_at.present?
   end
 end
   

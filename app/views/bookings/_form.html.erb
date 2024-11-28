@@ -19,7 +19,12 @@
     <% end %>
   
     <%= f.hidden_field :business_id, value: @booking.business_id %>
-    <%= f.input :started_at %>
+    <%= f.input :started_at, 
+            as: :datetime, 
+            html5: true, 
+            input_html: { class: "form-control", value: @booking.started_at&.in_time_zone(@business.timezone)&.strftime("%Y-%m-%dT%H:%M") }, 
+            label_html: { class: "form-label" }, 
+            label: "Start Time" %>
     <%= f.hidden_field :ended_at %>
   </div>
 
