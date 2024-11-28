@@ -18,6 +18,9 @@
                 <li>
                   <%= link_to "#{business.name} Bookings", business_bookings_path(business.name), class: "dropdown-item" %>
                 </li>
+                <li>
+                  <%= link_to "#{business.name} Calendar", business_calendar_path(business.name), class: "dropdown-item" %>
+                </li>
               <% end %>
             </ul>
             <li class="nav-item">
