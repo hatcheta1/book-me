@@ -1,5 +1,6 @@
 class BusinessesController < ApplicationController
   before_action :set_business, only: %i[ show edit update destroy ]
+  before_action :normalize_business_name, only: :calendar
 
   # GET /businesses or /businesses.json
   def index
@@ -62,6 +63,14 @@ class BusinessesController < ApplicationController
   end
 
   def calendar
+    @business = Business.find_by(name: params[:business_name].tr("_", " "))
+    if @business.nil?
+      redirect_to root_path, alert: "Business not found."
+      return
+    end
+    @bookings = @business.accepted_received_bookings.where(
+      "started_at >= ? AND started_at <= ?", Date.today.beginning_of_week, Date.today.end_of_week
+  )
   end
 
   private
@@ -73,5 +82,11 @@ class BusinessesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def business_params
       params.require(:business).permit(:owner_id, :name, :address, :about, :logo)
+    end
+
+    def normalize_business_name
+      if params[:business_name].include?(" ")
+        redirect_to business_calendar_path(business_name: params[:business_name].tr(" ", "_")), status: :moved_permanently
+      end
     end
 end

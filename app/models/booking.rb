@@ -59,6 +59,19 @@ class Booking < ApplicationRecord
       end
     end
   end
+
+  # Attributes for simple_calendar gem
+  def start_date
+    started_at.to_date
+  end
+  
+  def start_time
+    started_at.to_time
+  end
+  
+  def end_time
+    ended_at.to_time
+  end
     
   private
   
@@ -79,7 +92,7 @@ class Booking < ApplicationRecord
     return unless business && started_at && ended_at
 
     # Get the day of the week for the booking
-    day_of_week = started_at.in_time_zone(business.time_zone)strftime("%A")
+    day_of_week = started_at.in_time_zone(business.time_zone).strftime("%A")
     
     # Find the business hours for that day
     business_hour = business.business_hours.find_by(day_of_the_week: day_of_week)
@@ -110,7 +123,7 @@ class Booking < ApplicationRecord
   def convert_times_to_business_timezone
     return unless business
 
-    tz = ActiveSupport::TimeZone[business.timezone]
+    tz = ActiveSupport::TimeZone[business.time_zone]
     started_at = tz.parse(started_at.to_s) if started_at.present?
     ended_at = tz.parse(ended_at.to_s) if ended_at.present?
   end

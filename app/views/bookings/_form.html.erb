@@ -10,7 +10,7 @@
                   label: "Select Client", 
                   include_blank: "Choose a client" %>
       <%= f.input :service_id, 
-                  collection: @business.services.map { |s| [s.name, s.id] }, 
+                  collection: @booking.business.services.map { |s| [s.name, s.id] }, 
                   label: "Select Service", 
                   include_blank: "Choose a service" %>
     <% else %>
@@ -22,7 +22,7 @@
     <%= f.input :started_at, 
             as: :datetime, 
             html5: true, 
-            input_html: { class: "form-control", value: @booking.started_at&.in_time_zone(@business.timezone)&.strftime("%Y-%m-%dT%H:%M") }, 
+            input_html: { class: "form-control", value: @booking.started_at&.in_time_zone(@booking.business.time_zone)&.strftime("%Y-%m-%dT%H:%M") }, 
             label_html: { class: "form-label" }, 
             label: "Start Time" %>
     <%= f.hidden_field :ended_at %>
