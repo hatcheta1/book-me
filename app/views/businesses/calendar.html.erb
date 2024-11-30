@@ -1,0 +1,9 @@
+<%= week_calendar(number_of_weeks: 1, events: @bookings) do |date, bookings| %>
+  <%= date.day %>
+
+  <% bookings.each do |booking| %>
+    <div>
+      <%= render "bookings/card", booking: booking %>
+    </div>
+  <% end %>
+<% end %>

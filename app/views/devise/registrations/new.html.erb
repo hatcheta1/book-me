@@ -41,6 +41,11 @@
     <%= f.file_field :profile_picture, autofocus: true %>
   </div>
 
+  <div class="field">
+    <%= f.label :time_zone %><br />
+    <%= f.time_zone_select :time_zone, autofocus: true %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
