@@ -26,18 +26,14 @@
 #
 class Booking < ApplicationRecord
   belongs_to :client, class_name: "User"
-
   belongs_to :business
-  
   belongs_to :service
 
   validates :started_at, :ended_at, presence: true
-
   validate :time_slot_availability, on: :create
   validate :within_business_hours, on: :create
 
   before_validation :ensure_ended_at_has_value
-  before_validation :convert_times_to_business_timezone
 
   enum status: { pending: 0, accepted: 1, declined: 2 }, _default: :pending
 
@@ -68,22 +64,32 @@ class Booking < ApplicationRecord
   def within_business_hours
     return unless business && started_at && ended_at
 
+    # Convert to business's time zone
+    tz = ActiveSupport::TimeZone[business.time_zone]
+    start_in_tz = started_at.in_time_zone(tz)
+    end_in_tz = ended_at.in_time_zone(tz)
+
     # Get the day of the week for the booking
-    day_of_week = started_at.in_time_zone(business.time_zone).strftime("%A")
-    
+    day_of_week = start_in_tz.strftime("%A")
+
     # Find the business hours for that day
     business_hour = business.business_hours.find_by(day_of_the_week: day_of_week)
-
-    opening_time = business_hour.adjusted_opening_time
-    closing_time = business_hour.adjusted_closing_time
-
-    # Validate against the business's open and close times
-    if business_hour.closed || business_hour.nil?
+    if business_hour.nil? || business_hour.closed
       errors.add(:base, "The business is closed on #{day_of_week}.")
-    elsif started_at < opening_time ||
-    ended_at > closing_time
+      return
+    end
+
+    # Compare booking times against business hours
+    opening_time = start_time_on_day(business_hour.opening_time, tz)
+    closing_time = start_time_on_day(business_hour.closing_time, tz)
+
+    if start_in_tz < opening_time || end_in_tz > closing_time
       errors.add(:base, "The booking time is outside the business hours for #{day_of_week}.")
     end
+  end
+
+  def start_time_on_day(business_time, tz)
+    (started_at.to_date.to_datetime + business_time.seconds_since_midnight.seconds).in_time_zone(tz)
   end
 
   def ensure_ended_at_has_value
@@ -92,34 +98,29 @@ class Booking < ApplicationRecord
     end
   end
 
-  def convert_times_to_business_timezone
-    return unless business
-
-    tz = ActiveSupport::TimeZone[business.time_zone]
-    started_at = tz.parse(started_at.to_s) if started_at.present?
-    ended_at = tz.parse(ended_at.to_s) if ended_at.present?
-  end
-
-    # Validation logic for booking time
-    def validate_booking_time(business, proposed_started_at, proposed_ended_at)
-      business_bookings = business.accepted_received_bookings
-      client_bookings = client.accepted_sent_bookings
-  
-      bookings = business_bookings + client_bookings
-      
-      bookings.none? do |booking|
-        (proposed_started_at < booking.ended_at) && (proposed_ended_at > booking.started_at)
-      end
-    end
-
+  # Validation logic for overlapping bookings
   def time_slot_availability
     business = self.business
+    return unless business && started_at && ended_at
 
-    # Ensure we have a business and a valid time range
-    if business && started_at && ended_at
-      unless validate_booking_time(business, started_at, ended_at)
-        errors.add(:base, "The selected time slot is unavailable.")
-      end
+    tz = ActiveSupport::TimeZone[business.time_zone]
+    start_in_tz = started_at.in_time_zone(tz)
+    end_in_tz = ended_at.in_time_zone(tz)
+
+    # Check against existing bookings
+    unless validate_booking_time(business, start_in_tz, end_in_tz)
+      errors.add(:base, "The selected time slot is unavailable.")
+    end
+  end
+
+  def validate_booking_time(business, proposed_started_at, proposed_ended_at)
+    business_bookings = business.accepted_received_bookings
+    client_bookings = client.sent_bookings
+
+    bookings = business_bookings + client_bookings
+
+    bookings.none? do |booking|
+      (proposed_started_at < booking.ended_at) && (proposed_ended_at > booking.started_at)
     end
   end
 end
