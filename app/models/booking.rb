@@ -74,22 +74,21 @@ class Booking < ApplicationRecord
 
     # Find the business hours for that day
     business_hour = business.business_hours.find_by(day_of_the_week: day_of_week)
+    
     if business_hour.nil? || business_hour.closed
+      Rails.logger.debug "Business is closed on this day."
       errors.add(:base, "The business is closed on #{day_of_week}.")
       return
     end
 
     # Compare booking times against business hours
-    opening_time = start_time_on_day(business_hour.opening_time, tz)
-    closing_time = start_time_on_day(business_hour.closing_time, tz)
+    opening_time = business_hour.opening_time.in_time_zone(tz)
+    closing_time = business_hour.closing_time.in_time_zone(tz)
 
     if start_in_tz < opening_time || end_in_tz > closing_time
+      Rails.logger.debug "Booking outside hours: #{business_hour.opening_time} - #{business_hour.closing_time}"
       errors.add(:base, "The booking time is outside the business hours for #{day_of_week}.")
     end
-  end
-
-  def start_time_on_day(business_time, tz)
-    (started_at.to_date.to_datetime + business_time.seconds_since_midnight.seconds).in_time_zone(tz)
   end
 
   def ensure_ended_at_has_value
