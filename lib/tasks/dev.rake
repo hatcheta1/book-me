@@ -59,7 +59,7 @@ task({ :sample_data => :environment }) do
   # Create 5 businesses in Chicago
   central_time_users.sample(5).each do |user|
     Business.create!(
-      name: "#{Faker::Adjective.positive} Hair",
+      name: "#{Faker::Adjective.positive.capitalize} Hair",
       about: Faker::Company.catch_phrase,
       address: "#{Faker::Address.street_address}, Chicago, IL",
       owner: user
@@ -89,9 +89,33 @@ task({ :sample_data => :environment }) do
     end
   end
 
+  businesses.each do |business|
+    BusinessHour::DAYS_OF_THE_WEEK.each do |day|
+      closed = [true, false].sample
+    
+      if closed
+        opening_time = nil
+        closing_time = nil
+      else
+        timezone = ActiveSupport::TimeZone[business.owner.time_zone]
+        opening_time = timezone.local(2024, 12, 1, 8, 0)
+        closing_time = timezone.local(2024, 12, 1, 18, 0)
+      end
+    
+      BusinessHour.create!(
+        business: business,
+        day_of_the_week: day,
+        opening_time: opening_time,
+        closing_time: closing_time,
+        closed: closed
+      )
+    end
+  end
+
   ending = Time.now
   p "It took #{(ending - starting).to_i} seconds to create sample data."
   p "There are now #{User.count} users."
   p "There are now #{Business.count} businesses."
   p "There are now #{Service.count} services."
+  p "There are now #{BusinessHour.count} business hours."
 end

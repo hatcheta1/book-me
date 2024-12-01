@@ -33,7 +33,7 @@ class BusinessHour < ApplicationRecord
   validate :valid_time_range, if: -> { !closed }
 
   def format_time(time)
-    time.strftime("%l:%M %P %Z")
+    time.in_time_zone(business.owner.time_zone).strftime("%l:%M %P %Z")
   end
 
   def adjusted_opening_time
@@ -53,10 +53,11 @@ class BusinessHour < ApplicationRecord
   end
 
   def business_time_to_timezone(time)
-    return time unless business.owner.time_zone
+    return nil if closed || time.nil?
   
     Time.use_zone(business.owner.time_zone) do
-      Time.zone.parse(time.strftime("%H:%M"))
+      # Convert time to the business owner's time zone and return as DateTime
+      Time.zone.local(time.year, time.month, time.day, time.hour, time.min).to_datetime
     end
   end
 end

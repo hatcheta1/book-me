@@ -44,7 +44,7 @@ class BookingsController < ApplicationController
     else
       @booking = current_user.sent_bookings.new(booking_params)
     end
-
+debugger
     respond_to do |format|
       if @booking.save
         format.html { redirect_to bookings_path, notice: "Booking was successfully created." }
