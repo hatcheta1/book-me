@@ -49,17 +49,6 @@ class Booking < ApplicationRecord
     time.strftime("%B %e, %Y")
   end 
 
-  def time_slot_availability
-    business = self.business
-
-    # Ensure we have a business and a valid time range
-    if business && started_at && ended_at
-      unless validate_booking_time(business, started_at, ended_at)
-        errors.add(:base, "The selected time slot is unavailable.")
-      end
-    end
-  end
-
   # Attributes for simple_calendar gem
   def start_date
     started_at.to_date
@@ -74,18 +63,6 @@ class Booking < ApplicationRecord
   end
     
   private
-  
-  # Validation logic for booking time
-  def validate_booking_time(business, proposed_started_at, proposed_ended_at)
-    business_bookings = business.accepted_received_bookings
-    client_bookings = client.accepted_sent_bookings
-
-    bookings = business_bookings + client_bookings
-    
-    bookings.none? do |booking|
-      (proposed_started_at < booking.ended_at) && (proposed_ended_at > booking.started_at)
-    end
-  end
 
   # Ensure the booking fits within the business's operating hours
   def within_business_hours
@@ -109,11 +86,6 @@ class Booking < ApplicationRecord
     end
   end
 
-  # Helper to adjust the time to the same day as the booking's start_time
-  #def start_time_on_day(business_time)
-    #started_at.to_date.to_datetime + business_time.seconds_since_midnight.seconds
-  #end
-
   def ensure_ended_at_has_value
     if ended_at.blank?
       self.ended_at = started_at + service.duration.minutes
@@ -126,6 +98,29 @@ class Booking < ApplicationRecord
     tz = ActiveSupport::TimeZone[business.time_zone]
     started_at = tz.parse(started_at.to_s) if started_at.present?
     ended_at = tz.parse(ended_at.to_s) if ended_at.present?
+  end
+
+    # Validation logic for booking time
+    def validate_booking_time(business, proposed_started_at, proposed_ended_at)
+      business_bookings = business.accepted_received_bookings
+      client_bookings = client.accepted_sent_bookings
+  
+      bookings = business_bookings + client_bookings
+      
+      bookings.none? do |booking|
+        (proposed_started_at < booking.ended_at) && (proposed_ended_at > booking.started_at)
+      end
+    end
+
+  def time_slot_availability
+    business = self.business
+
+    # Ensure we have a business and a valid time range
+    if business && started_at && ended_at
+      unless validate_booking_time(business, started_at, ended_at)
+        errors.add(:base, "The selected time slot is unavailable.")
+      end
+    end
   end
 end
   
