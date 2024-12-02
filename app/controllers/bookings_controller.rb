@@ -47,7 +47,7 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        if @booking.status == :accepted
+        if @booking.status == "accepted"
           format.html { redirect_to business_bookings_path(@booking.business.name), notice: "Booking was successfully created." }
         else
           format.html { redirect_to client_bookings_path(@booking.client.username), notice: "Booking was successfully created." }
