@@ -47,7 +47,11 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to bookings_path, notice: "Booking was successfully created." }
+        if @booking.status == :accepted
+          format.html { redirect_to business_bookings_path(@booking.business.name), notice: "Booking was successfully created." }
+        else
+          format.html { redirect_to client_bookings_path(@booking.client.username), notice: "Booking was successfully created." }
+        end
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new, status: :unprocessable_entity }
