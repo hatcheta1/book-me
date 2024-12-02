@@ -17,3 +17,43 @@
   height: 75px; 
   object-fit: cover; 
 }
+
+.custom-navbar {
+  background-color: #92bf72;
+}
+
+.btn-primary {
+  background-color: #92bf72;
+  border-color: #92bf72;
+  color: black;
+}
+
+.btn-primary:hover {
+  background-color: black;
+  border-color: black;
+  color: #92bf72;
+}
+
+.btn-outline-primary {
+  background-color: transparent; 
+  border-color: #92bf72; 
+  color: #92bf72; 
+}
+
+.btn-outline-primary:hover {
+  background-color: #92bf72; 
+  border-color: #92bf72; 
+  color: black; 
+}
+
+.btn-secondary {
+  background-color: #e1dfdf;
+  border-color: #e1dfdf;
+  color: black;
+}
+
+#businesses .card-img-top {
+  max-width: 80%;
+  margin: 0 auto;
+  display: block; 
+}
