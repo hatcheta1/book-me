@@ -1,4 +1,6 @@
-<%= link_to "Add a booking", new_booking_path(business_id: @business.id), class: "btn btn-primary" %>
+<div class="position-relative">
+  <%= link_to "Add a booking", new_booking_path(business_id: @business.id), class: "btn btn-primary position-absolute top-0 end-0 m-3" %>
+</div>
 
 <%= week_calendar(events: @bookings) do |date, bookings| %>
   <%= date.day %>
