@@ -15,6 +15,13 @@
  *= require calendar
  */
 
+/* Forms */
+.form-label {
+  display: block;
+}
+
+/* TODO: add custom asterisk for required fields */
+
  /* Photos */
 .logo {
   width: 100px; 
