@@ -5,7 +5,13 @@
   <div class="card-body">
     <h5 class="card-title"><%= business.name %></h5>
     <p class="card-text"><%= business.address %></p>
-    <small class="card-text"><%= business.about %></small>
-    <%= link_to "Book an appointment at #{business.name}", business_path(business.id), class: "btn btn-secondary" %>
+    <small class="card-text">
+      <strong>Services:</strong>
+      <% business.services.sample(2).each do |service| %>
+        <%= service.name %>,
+      <% end %>
+      etc.
+    </small>
+    <%= link_to "Book an appointment at #{business.name}", business_path(business.id), class: "btn btn-secondary mt-2" %>
   </div>
 </div>

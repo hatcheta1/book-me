@@ -78,7 +78,11 @@ class BookingsController < ApplicationController
     @booking.destroy!
 
     respond_to do |format|
-      format.html { redirect_to bookings_url, notice: "Booking was successfully destroyed." }
+      if current_user == @booking.business.owner
+        format.html { redirect_to business_bookings_url(@booking.business.name), notice: "Booking was successfully destroyed." }
+      elsif current_user == @booking.client
+        format.html { redirect_to client_bookings_url(@booking.client.username), notice: "Booking was successfully destroyed." }
+      end
       format.json { head :no_content }
     end
   end

@@ -46,7 +46,7 @@ class Booking < ApplicationRecord
   end 
 
   def format_date(time)
-    time.strftime("%B %e, %Y")
+    time.strftime("%a, %B %e")
   end 
 
   # Attributes for simple_calendar gem
