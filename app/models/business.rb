@@ -33,7 +33,16 @@ class Business < ApplicationRecord
 
   validates :name, presence: true
 
+  after_create :initialize_business_hours
+
   def time_zone
     owner.time_zone || "UTC"
+  end
+
+    
+  def initialize_business_hours
+    BusinessHour::DAYS_OF_THE_WEEK.each do |day|
+      business_hours.create!(day_of_the_week: day, closed: true)
+    end
   end
 end
