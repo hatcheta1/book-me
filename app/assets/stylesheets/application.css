@@ -86,7 +86,6 @@
   color: #cd4d4d;
 }
 
-/* TODO: Change to a more complimentary color */
 .btn-success {
   background-color: #4d8bcd;
   border-color: #4d8bcd;
@@ -97,6 +96,20 @@
   background-color: black;
   border-color: black;
   color: #4d8bcd;
+}
+
+.form-button {
+  background-color: #92bf72;
+  border-color: #92bf72;
+  color: black;
+  margin-top: 2px;
+}
+
+.form-button:hover {
+  background-color: black;
+  border-color: black;
+  color: #92bf72;
+  margin-top: 2px;
 }
 
 /* Colors */
