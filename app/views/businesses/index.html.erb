@@ -1,8 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Businesses</h1>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <h1>Businesses</h1>
+  <%= render "search/button" %>
+</div>
 
-<%= render "search/button" %>
 <%= render "search/modal" %>
 
 <div id="businesses">
@@ -19,9 +21,9 @@
     Owner: <%= business.owner.full_name %>
   </div>
    
-    <p>
-      <%= link_to "Show this business", business %>
-    </p>
+  <p>
+    <%= link_to "Show this business", business %>
+  </p>
   <% end %>
 </div>
 
