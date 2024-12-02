@@ -92,16 +92,15 @@ task({ :sample_data => :environment }) do
   businesses.each do |business|
     BusinessHour::DAYS_OF_THE_WEEK.each do |day|
       closed = [true, false].sample
-    
-      if closed
-        opening_time = nil
-        closing_time = nil
-      else
-        timezone = ActiveSupport::TimeZone[business.owner.time_zone]
-        opening_time = timezone.local(2024, 12, 1, 8, 0)
-        closing_time = timezone.local(2024, 12, 1, 18, 0)
-      end
-    
+
+      timezone = ActiveSupport::TimeZone[business.owner.time_zone]
+      opening_time = timezone.local(2024, 12, 1, 8, 0).to_time
+      closing_time = timezone.local(2024, 12, 1, 18, 0).to_time
+
+      puts "Opening Time (CST): #{opening_time}"
+      puts "Closing Time (CST): #{closing_time}"
+
+      # Save the business hours in UTC
       BusinessHour.create!(
         business: business,
         day_of_the_week: day,

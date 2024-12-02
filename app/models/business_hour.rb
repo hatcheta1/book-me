@@ -47,8 +47,20 @@ class BusinessHour < ApplicationRecord
   private
 
   def valid_time_range
-    if opening_time >= closing_time
-      errors.add(:base, "Opening time must be before closing time.")
+    if opening_time.present? && closing_time.present?
+      # Convert opening and closing times to local time (CST)
+      timezone = ActiveSupport::TimeZone[business.owner.time_zone]
+      opening_time_local = opening_time.in_time_zone(timezone)
+      closing_time_local = closing_time.in_time_zone(timezone)
+
+      # Log the times for debugging
+      Rails.logger.debug "Opening Time (Local): #{opening_time_local}"
+      Rails.logger.debug "Closing Time (Local): #{closing_time_local}"
+
+      # Check if the opening time is before the closing time
+      if opening_time_local >= closing_time_local
+        errors.add(:closing_time, "must be after opening time")
+      end
     end
   end
 
