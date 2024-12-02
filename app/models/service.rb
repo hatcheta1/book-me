@@ -39,8 +39,10 @@ class Service < ApplicationRecord
     hours = duration / 60
     remainder = duration % 60
 
-    if remainder != 0
+    if remainder != 0 && hours != 0
       "#{hours} h #{remainder} mins"
+    elsif hours == 0
+      "#{remainder} mins"
     else
       "#{hours} h"
     end
