@@ -22,7 +22,7 @@
   <div class="text-end">
     <% if current_user == booking.business.owner %>
       <% if booking.status == "pending" %>
-        <%= button_to "Accept", accept_booking_path(booking), method: :patch, class: "btn btn-success btn-sm mb-1" %>
+        <%= button_to "Accept", accept_booking_path(booking), method: :patch, class: "btn btn-primary btn-sm mb-1" %>
         <%= button_to "Decline", decline_booking_path(booking), method: :patch, class: "btn btn-danger btn-sm" %>
       <% else %>
         <% if booking.status == "accepted" %>
