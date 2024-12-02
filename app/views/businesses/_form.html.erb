@@ -1,18 +1,29 @@
-
-<%= simple_form_for(@business) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<%= simple_form_for(@business, html: { class: "needs-validation", novalidate: true }) do |f| %>
+  <%= f.error_notification class: "alert alert-danger" %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence, class: "alert alert-danger" if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
     <%= f.hidden_field :owner %>
-    <%= f.input :name %>
-    <%= f.input :address %>
-    <%= f.input :about %>
-    <%= f.label :logo, "Logo" %>
-    <%= f.file_field :logo %>
+
+    <div class="mb-3">
+      <%= f.input :name, input_html: { class: "form-control" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.input :address, input_html: { class: "form-control" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.input :about, as: :text, input_html: { class: "form-control" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :logo, class: "form-label" %>
+      <%= f.file_field :logo, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions d-grid mt-4">
+    <%= f.button :submit, "Save", class: "btn btn-primary btn-block" %>
   </div>
 <% end %>

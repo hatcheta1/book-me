@@ -1,6 +1,6 @@
 <li class="list-group-item d-flex justify-content-between">
+    <div><%= image_tag service.photo, class: "service-photo" if service.photo.attached? %></div>
   <div class="ms-2 me-auto">
-    <div><%= image_tag service.photo if service.photo.attached? %></div>
     <div class="fw-bold"><%= service.name %></div>
     <small style="word-wrap: break-word; overflow-wrap: break-word; max-width: 400px; display: block;"><%= service.description %></small>
   </div>
