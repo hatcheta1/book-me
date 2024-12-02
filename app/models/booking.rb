@@ -68,24 +68,24 @@ class Booking < ApplicationRecord
   def within_business_hours
     return unless business && started_at && ended_at
 
-    # Redefine start and end times for comarison * TODO: Make better comment *
-    # started_at = started_at.strftime("%H:%M:%S")
-    # ended_at = ended_at.strftime("%H:%M:%S")
-
     # Get the day of the week for the booking
     day_of_week = started_at.in_time_zone(business.time_zone).strftime("%A")
     
     # Find the business hours for that day
     business_hour = business.business_hours.find_by(day_of_the_week: day_of_week)
-
-    opening_time = business_hour.adjusted_opening_time.strftime("%H:%M:%S")
-    closing_time = business_hour.adjusted_closing_time.strftime("%H:%M:%S")
+    
+    if !business_hour.closed
+      opening_time = business_hour.adjusted_opening_time.strftime("%H:%M:%S")
+      closing_time = business_hour.adjusted_closing_time.strftime("%H:%M:%S")
   
     # Validate against the business's open and close times
-    if business_hour.closed || business_hour.nil?
+      if business_hour.closed || business_hour.nil?
+        errors.add(:base, "The business is closed on #{day_of_week}.")
+      elsif started_at.strftime("%H:%M:%S") < opening_time || ended_at.strftime("%H:%M:%S") > closing_time
+        errors.add(:base, "The booking time is outside the business hours for #{day_of_week}.")
+      end
+    else
       errors.add(:base, "The business is closed on #{day_of_week}.")
-    elsif started_at.strftime("%H:%M:%S") < opening_time || ended_at.strftime("%H:%M:%S") > closing_time
-      errors.add(:base, "The booking time is outside the business hours for #{day_of_week}.")
     end
   end
 
