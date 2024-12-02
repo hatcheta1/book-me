@@ -8,6 +8,7 @@ class ServicesController < ApplicationController
 
   # GET /services/1 or /services/1.json
   def show
+    redirect_to business_url(@service.business_id)
   end
 
   # GET /services/new
