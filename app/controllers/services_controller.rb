@@ -23,6 +23,7 @@ class ServicesController < ApplicationController
   # POST /services or /services.json
   def create
     @service = Service.new(service_params)
+    @service.business = current_user.businesses.first
 
     respond_to do |format|
       if @service.save
