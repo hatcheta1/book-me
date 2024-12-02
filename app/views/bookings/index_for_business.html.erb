@@ -1,8 +1,13 @@
-<h1><%= @business.name %> Bookings</h1>
-
+<h1 class="d-flex">
 <div>
+  <%= @business.name %> Bookings
+</div>
+<div class="ms-auto">
   <%= link_to "Add a booking", new_booking_path(business_id: @business.id), class: "btn btn-primary" %>
 </div>
+</h1>
+
+<hr>
 
 <% upcoming_bookings, past_bookings = @bookings.partition { |booking| booking.started_at > Time.current } %>
 
