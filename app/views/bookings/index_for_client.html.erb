@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Your Bookings</h1>
 
 <% upcoming_bookings, past_bookings = @bookings.partition { |booking| booking.started_at > Time.current } %>
