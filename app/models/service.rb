@@ -20,6 +20,9 @@
 #  fk_rails_...  (business_id => businesses.id)
 #
 class Service < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: [:name, :description]
+
   belongs_to :business
 
   has_one_attached :photo
@@ -27,6 +30,10 @@ class Service < ApplicationRecord
   has_many :received_bookings, class_name: "Booking"
   
   has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking"
+
+  def to_s
+    "#{name} at #{business}"
+  end
 
   def to_time
     hours = duration / 60

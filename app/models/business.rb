@@ -19,6 +19,9 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 class Business < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: [:name, :address]
+
   belongs_to :owner, class_name: "User"
 
   has_one_attached :logo
@@ -28,8 +31,26 @@ class Business < ApplicationRecord
   has_many :services
 
   has_many :received_bookings, class_name: "Booking"
-  
-  has_many :accepted_received_bookings, -> { where status: accepted }, class_name: "Booking"
+
+  has_many :accepted_received_bookings, -> { where(status: :accepted) }, class_name: "Booking"
 
   validates :name, presence: true
+
+  after_create :initialize_business_hours
+
+  def to_s
+    "#{name}"
+  end
+
+  def time_zone
+    owner.time_zone || "UTC"
+  end
+
+  private
+
+  def initialize_business_hours
+    BusinessHour::DAYS_OF_THE_WEEK.each do |day|
+      business_hours.create!(day_of_the_week: day, closed: true)
+    end
+  end
 end

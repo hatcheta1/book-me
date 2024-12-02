@@ -10,22 +10,28 @@
           <li class="nav-item">
             <%= link_to "Home", businesses_path, class: "nav-link active", aria: { current: "page" } %>
           </li>
-          <li class="nav-item dropdown">
-            <%= content_tag(:a, "Bookings", class: "nav-link active dropdown-toggle", href: "#", role: "button", data: { bs_toggle: "dropdown" }, aria: { expanded: "false" }) %>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Your Bookings", client_bookings_path(current_user.username), class: "dropdown-item" %></li>
-              <% current_user.businesses.each do |business| %>
+          <li><%= link_to "Your Bookings", client_bookings_path(current_user.username), class: "nav-link active" %></li>
+          <% current_user.businesses.each do |business| %>
+            <li class="nav-item dropdown">
+              <%= content_tag(:a, "#{business.name}", class: "nav-link active dropdown-toggle", href: "#", role: "button", data: { bs_toggle: "dropdown" }, aria: { expanded: "false" }) %>
+              <ul class="dropdown-menu">
                 <li>
-                  <%= link_to "#{business.name} Bookings", business_bookings_path(business.name), class: "dropdown-item" %>
+                  <%= link_to "Business Profile", business_path(business.id), class: "dropdown-item" %>
+                </li>
+                <li>
+                  <%= link_to "Bookings", business_bookings_path(business.name), class: "dropdown-item" %>
+                </li>
+                <li>
+                  <%= link_to "Calendar", business_calendar_path(business.name), class: "dropdown-item" %>
+                </li>
+                <li>
+                  <%= link_to "Services", services_path, class: "dropdown-item" %>
+                </li>
+                <li>
+                  <%= link_to "Business Hours", business_hours_path, class: "dropdown-item" %>
                 </li>
               <% end %>
             </ul>
-            <li class="nav-item">
-              <%= link_to "Services", services_path, class: "nav-link active" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Business Hours", business_hours_path, class: "nav-link active" %>
-            </li>
           </ul>
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li><%= link_to "Edit profile", edit_user_registration_path, class: "nav-link active" %></li>

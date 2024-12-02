@@ -3,8 +3,8 @@
     <p>
       <strong><%= business_hour.day_of_the_week %>:</strong>
       <% if !business_hour.closed %>
-        <%= business_hour.format_time(business_hour.opening_time) %> -
-        <%= business_hour.format_time(business_hour.closing_time) %>
+        <%= business_hour.format_time(business_hour.adjusted_opening_time) %> -
+        <%= business_hour.format_time(business_hour.adjusted_closing_time) %>
     </p>
       <% else %>
         Closed

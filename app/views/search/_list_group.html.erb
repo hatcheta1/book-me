@@ -1,0 +1,11 @@
+<div id="search-results">
+  <% if results.empty? %>
+    <p class="text-center my-5">No results</p>
+  <% else %>
+    <div class="list-group list-group-flush my-3">
+      <% results.each do |result| %>
+        <%= link_to result.searchable, {}, class: "list-group-item list-group-item-action" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

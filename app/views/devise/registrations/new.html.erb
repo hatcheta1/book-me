@@ -41,8 +41,13 @@
     <%= f.file_field :profile_picture, autofocus: true, class: "form-control" %>
   </div>
 
-  <div class="d-grid">
-    <%= f.submit "Sign up", class: "btn btn-primary btn-block" %>
+  <div class="field">
+    <%= f.label :time_zone %><br />
+    <%= f.time_zone_select :time_zone, autofocus: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
   </div>
 <% end %>
 
