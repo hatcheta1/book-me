@@ -43,11 +43,11 @@
 
   <div class="field">
     <%= f.label :time_zone %><br />
-    <%= f.time_zone_select :time_zone, autofocus: true %>
+    <%= f.time_zone_select :time_zone %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: "btn btn-primary" %>
   </div>
 <% end %>
 
