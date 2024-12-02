@@ -1,28 +1,20 @@
 <p style="color: green"><%= notice %></p>
 
-<div style="display: flex; justify-content: space-between; align-items: center;">
-  <h1>Businesses</h1>
-  <%= render "search/button" %>
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Search for businesses, services, and locations!" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <button class="btn btn-secondary" type="button" id="button-addon2">Search</button>
 </div>
 
-<%= render "search/modal" %>
+<div style="d-flex justify-content-center align-items-center">
+  <h2>Businesses in your area</h2>
+</div>
 
-<div id="businesses">
-  <% @businesses.each do |business| %>
-  <div>
-    <%= business.name %>
+<div class="container mt-4">
+  <div class="row">
+    <% @businesses.each do |business| %>
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+        <%= render "businesses/card", business: business %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= business.address %>
-  </div>
-
-  <div>
-    Owner: <%= business.owner.full_name %>
-  </div>
-   
-  <p>
-    <%= link_to "Show this business", business %>
-  </p>
-  <% end %>
 </div>

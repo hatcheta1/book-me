@@ -1,0 +1,11 @@
+<div class="card" style="width: 100%;">
+  <div class="d-flex justify-content-center">
+    <%= image_tag business.logo, class: "logo card-img-top img-fluid" if business.logo.attached? %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= business.name %></h5>
+    <p class="card-text"><%= business.address %></p>
+    <small class="card-text"><%= business.about %></small>
+    <%= link_to "Book an appointment at #{business.name}", business_path(business.id), class: "btn btn-secondary" %>
+  </div>
+</div>
