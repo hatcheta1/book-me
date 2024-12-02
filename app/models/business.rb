@@ -19,6 +19,9 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 class Business < ApplicationRecord
+  include PgSearch::Model
+  multisearchable against: [:name, :address]
+
   belongs_to :owner, class_name: "User"
 
   has_one_attached :logo
@@ -35,6 +38,9 @@ class Business < ApplicationRecord
 
   after_create :initialize_business_hours
 
+  def to_s
+    "#{name}"
+  end
 
   def time_zone
     owner.time_zone || "UTC"
