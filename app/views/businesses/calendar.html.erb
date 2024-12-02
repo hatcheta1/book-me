@@ -1,4 +1,6 @@
-<%= week_calendar(number_of_weeks: 1, events: @bookings) do |date, bookings| %>
+<%= link_to "Add a booking", new_booking_path(business_id: @business.id), class: "btn btn-primary" %>
+
+<%= week_calendar(events: @bookings) do |date, bookings| %>
   <%= date.day %>
 
   <% bookings.each do |booking| %>

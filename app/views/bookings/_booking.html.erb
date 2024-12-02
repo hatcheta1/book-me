@@ -1,17 +1,19 @@
 <div id="<%= dom_id booking %>">
   <p>
     <strong>Client:</strong>
-    <%= booking.client_id %>
+    <%= booking.client.full_name %>
   </p>
 
+  <% if current_user == booking.client %>
   <p>
     <strong>Business:</strong>
-    <%= booking.business_id %>
+    <%= booking.business.name %>
   </p>
+  <% end %>
 
   <p>
     <strong>Service:</strong>
-    <%= booking.service_id %>
+    <%= booking.service.name %>
   </p>
 
   <p>

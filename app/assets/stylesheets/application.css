@@ -12,4 +12,105 @@
  *
  *= require_tree .
  *= require_self
+ *= require calendar
  */
+
+ /* Photos */
+.logo {
+  width: 100px; 
+  height: 100px; 
+  border-radius: 50%; 
+  object-fit: cover;
+}
+
+.profile-picture {
+  width: 25px; 
+  height: 25px; 
+  border-radius: 50%; 
+  object-fit: cover; 
+}
+
+.service-photo {
+  width: 100px; 
+  height: 75px; 
+  object-fit: cover; 
+}
+
+#businesses .card-img-top {
+  max-width: 80%;
+  margin: 0 auto;
+  display: block; 
+}
+
+/* Buttons */
+
+.btn-primary {
+  background-color: #92bf72;
+  border-color: #92bf72;
+  color: black;
+}
+
+.btn-primary:hover {
+  background-color: black;
+  border-color: black;
+  color: #92bf72;
+}
+
+.btn-outline-primary {
+  background-color: transparent; 
+  border-color: #92bf72; 
+  color: #92bf72; 
+}
+
+.btn-outline-primary:hover {
+  background-color: #92bf72; 
+  border-color: #92bf72; 
+  color: black; 
+}
+
+.btn-secondary {
+  background-color: #e1dfdf;
+  border-color: #e1dfdf;
+  color: black;
+}
+
+.btn-danger {
+  background-color: #cd4d4d;
+  border-color: #e1dfdf;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: black;
+  border-color: black;
+  color: #cd4d4d;
+}
+
+/* TODO: Change to a more complimentary color */
+.btn-success {
+  background-color: #4d8bcd;
+  border-color: #4d8bcd;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: black;
+  border-color: black;
+  color: #4d8bcd;
+}
+
+/* Colors */
+
+.success {
+  background-color: #92bf72;
+}
+
+.danger{
+  background-color: #cd4d4d;
+}
+
+/* Navbar */
+
+.custom-navbar {
+  background-color: #92bf72;
+}

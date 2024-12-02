@@ -1,11 +1,14 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
     <span class="calendar-title">
-      <%= t('simple_calendar.week', default: 'Week') %>
-      <%= calendar.week_number %>
-      <% if calendar.number_of_weeks > 1 %>
-        - <%= calendar.end_week %>
-      <% end %>
+      <div>
+        <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
+      </div>
+      <div>
+        <%= start_date.beginning_of_week.strftime("%A, %B %e, %Y") %> - 
+        <%= start_date.end_of_week.strftime("%A, %B %e, %Y") %>
+      </div>
+
     </span>
 
     <nav>
