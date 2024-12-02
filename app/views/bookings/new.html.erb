@@ -1,5 +1,13 @@
-<h1>New booking</h1>
+<% if current_user != @booking.business.owner %>
+  <h1>You are booking a <%= @booking.service %></h1>
+<% else %>
+  <h1>New booking at <%= @booking.business.name %></h1>
+<% end %>
 
 <%= render "form", booking: @booking %>
 
 <br>
+
+<div>
+  <%= link_to "Back", :back, class: "btn btn-secondary" %>
+</div>
