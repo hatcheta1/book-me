@@ -1,10 +1,14 @@
-<h1>Editing service</h1>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="col-md-6">
+    <h1>Editing service</h1>
 
-<%= render "form", service: @service %>
+    <%= render "form", service: @service %>
 
-<br>
+    <br>
 
-<div class="d-flex justify-content-between">
-  <%= link_to "Back", :back, class: "btn btn-secondary" %>
-  <%= link_to "Delete this service", service_path(@service.id), method: :delete, class: "btn btn-danger" %>
+    <div class="d-flex justify-content-between">
+      <%= link_to "Back", :back, class: "btn btn-secondary" %>
+      <%= link_to "Delete this service", service_path(@service.id), method: :delete, class: "btn btn-danger" %>
+    </div>
+  </div>
 </div>

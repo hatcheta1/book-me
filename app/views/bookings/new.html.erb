@@ -1,13 +1,17 @@
-<% if current_user != @booking.business.owner %>
-  <h1>You are booking a <%= @booking.service %></h1>
-<% else %>
-  <h1>New booking at <%= @booking.business.name %></h1>
-<% end %>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="col-md-6">
+    <% if current_user != @booking.business.owner %>
+      <h2>You are booking a <%= @booking.service %></h2>
+    <% else %>
+      <h1>New booking at <%= @booking.business.name %></h1>
+    <% end %>
 
-<%= render "form", booking: @booking %>
+    <%= render "form", booking: @booking %>
 
-<br>
+    <br>
 
-<div>
-  <%= link_to "Back", :back, class: "btn btn-secondary" %>
+    <div>
+      <%= link_to "Back", :back, class: "btn btn-secondary" %>
+    </div>
+  <div>
 </div>
