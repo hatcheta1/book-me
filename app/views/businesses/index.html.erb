@@ -3,14 +3,14 @@
   <button class="btn btn-secondary" type="button" id="button-addon2">Search</button>
 </div>
 
-<div style="d-flex justify-content-center align-items-center">
+<div class="text-center">
   <h2>Businesses in your area</h2>
 </div>
 
 <div class="container mt-4">
-  <div class="row">
+  <div class="masonry-grid">
     <% @businesses.each do |business| %>
-      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+      <div class="masonry-item">
         <%= render "businesses/card", business: business %>
       </div>
     <% end %>
