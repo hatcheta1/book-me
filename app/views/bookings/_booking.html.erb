@@ -1,39 +1,39 @@
-<div id="<%= dom_id booking %>">
-  <p>
-    <strong>Client:</strong>
-    <%= booking.client.full_name %>
-  </p>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="col-md-6">
+    <div id="<%= dom_id booking %>">
+      <% if current_user == booking.business.owner %>
+        <p>
+          <strong>Client:</strong>
+          <%= booking.client.full_name %>
+        </p>
+      <% end %>
 
-  <% if current_user == booking.client %>
-  <p>
-    <strong>Business:</strong>
-    <%= booking.business.name %>
-  </p>
-  <% end %>
+      <% if current_user == booking.client %>
+        <p>
+          <strong>Business:</strong>
+          <%= booking.business.name %>
+        </p>
+      <% end %>
 
-  <p>
-    <strong>Service:</strong>
-    <%= booking.service.name %>
-  </p>
+      <p>
+        <strong>Service:</strong>
+        <%= booking.service.name %>
+      </p>
 
-  <p>
-    <strong>Start time:</strong>
-    <%= booking.format_time(booking.started_at) %>
-  </p>
+      <p>
+        <strong>Date:</strong>
+        <%= booking.format_date(booking.started_at) %>
+      </p>
 
-  <p>
-    <strong>End time:</strong>
-    <%= booking.format_time(booking.ended_at) %>
-  </p>
+      <p>
+        <strong>Time:</strong>
+        <%= booking.format_time(booking.started_at) %> - <%= booking.format_time(booking.ended_at) %>
+      </p>
 
-  <p>
-    <strong>Date:</strong>
-    <%= booking.format_date(booking.started_at) %>
-  </p>
-
-  <p>
-    <strong>Status:</strong>
-    <%= booking.status %>
-  </p>
-
-</div>
+      <p>
+        <strong>Status:</strong>
+        <%= render "bookings/status", booking: booking %>
+      </p>
+    </div>
+    <div>
+    </div>
