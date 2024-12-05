@@ -39,6 +39,10 @@ p {
   font-family: 'Merriweather-Regular'
 }
 
+div {
+  font-family: 'Merriweather-Regular'
+}
+
 /* Forms */
 .form-label {
   display: block;
