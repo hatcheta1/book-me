@@ -29,6 +29,17 @@
 @font-face {
   font-family: 'Merriweather-Regular';
   src: font-url('Merriweather-Regular.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Merriweather-Bold';
+  src: font-url('Merriweather-Bold.ttf');
+  font-weight: bold;
+}
+
+strong {
+  font-weight: bold;
 }
 
 h1 {
