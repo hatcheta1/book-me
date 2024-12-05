@@ -76,13 +76,14 @@ end
 gem "active_link_to"
 gem "appdev_support"
 gem "awesome_print"
-gem 'aws-sdk-s3', require: false
+gem "aws-sdk-s3", require: false
 gem "devise"
 gem "dotenv"
 gem "faker"
 gem "htmlbeautifier"
 gem "http"
-gem 'pg_search'
+gem "pg_search"
+gem "ransack"
 gem "simple_calendar"
 gem "sqlite3", "~> 1.4"
 gem "table_print"
