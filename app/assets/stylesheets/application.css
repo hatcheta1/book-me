@@ -26,6 +26,19 @@
   page-break-inside: avoid;
 }
 
+@font-face {
+  font-family: 'Merriweather-Regular';
+  src: font-url('Merriweather-Regular.ttf');
+}
+
+h1 {
+  font-family: 'Merriweather-Regular'
+}
+
+p {
+  font-family: 'Merriweather-Regular'
+}
+
 /* Forms */
 .form-label {
   display: block;
