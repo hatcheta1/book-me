@@ -12,7 +12,7 @@
 <div id="services">
   <ul class="list-group">
     <% @services.each do |service| %>
-      <%= render service %>
+      <%= render "services/list_group_item", service: service %>
     <% end %>
   </ul>
 </div>

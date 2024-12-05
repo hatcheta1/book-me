@@ -12,9 +12,9 @@
     </div>
 
     <div>
-      <% if business.owner != current_user %>
+      <% if service.business.owner != current_user %>
         <%= link_to new_booking_path(
-            business_id: @business.id,
+            business_id: service.business.id,
             service_id: service.id,
       ),  class: "btn btn-primary", 
           style: "width: 75px; height: 40px;" do %>

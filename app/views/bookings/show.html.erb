@@ -1,8 +1,11 @@
 <%= render @booking %>
 
-<div>
-  <%= link_to "Edit this booking", edit_booking_path(@booking) %> |
-  <%= link_to "Back to bookings", bookings_path %>
-
-  <%= button_to "Cancel this booking", booking_path(@booking.id), method: :delete, class: "btn btn-danger" %>
+<div class="d-flex justify-content-between">
+  <% if current_user == @booking.client %>
+    <%= link_to "Back to bookings", client_bookings_path(@booking.client.username), class: "btn btn-secondary" %>
+  <% elsif current_user == @booking.business.owner %>
+    <%= link_to "Back to bookings", business_bookings_path(@booking.business.name), class: "btn btn-secondary" %>
+    <%= link_to "Edit booking", edit_booking_path(@booking), class: "btn btn-primary" %>
+  <% end %>
+    <%= button_to "Cancel booking", booking_path(@booking.id), method: :delete, class: "btn btn-danger" %>
 </div>

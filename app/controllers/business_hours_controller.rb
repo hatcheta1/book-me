@@ -38,7 +38,7 @@ class BusinessHoursController < ApplicationController
   def update
     respond_to do |format|
       if @business_hour.update(business_hour_params)
-        format.html { redirect_to business_hour_url(@business_hour), notice: "Business hour was successfully updated." }
+        format.html { redirect_to business_hours_url, notice: "Business hour was successfully updated." }
         format.json { render :show, status: :ok, location: @business_hour }
       else
         format.html { render :edit, status: :unprocessable_entity }
