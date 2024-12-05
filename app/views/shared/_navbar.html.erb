@@ -11,19 +11,23 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "Home", businesses_path, class: "nav-link active", aria: { current: "page" } %>
+            <% if current_user.businesses.present? %>
+              <%= link_to "Home", business_path(current_user.businesses.first), class: "nav-link active", aria: { current: "page" } %>
+            <% else %>
+              <%= link_to "Home", businesses_path, class: "nav-link active", aria: { current: "page" } %>
+            <% end %>
           </li>
           <li class="nav-item">
             <%= link_to "Your Bookings", client_bookings_path(current_user.username), class: "nav-link active" %>
           </li>
-          <% if current_user.businesses.present?%>
+          <% if current_user.businesses.present? %>
             <%= render "shared/business_owner_navbar" %>
           <% end %>
         <% end %>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
-              </ul>
+      </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
           <li class="nav-item">
@@ -41,7 +45,7 @@
           </li>
         <% end %>
 
-         <li class="nav-item">
+        <li class="nav-item">
           <%= render "search/button" %>
           <%= render "search/modal" %>
         </li>
