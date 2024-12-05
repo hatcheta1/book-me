@@ -6,7 +6,7 @@
     <% if current_user.businesses.exists?(id: @booking.business_id) %>
       <div class="mb-3">
         <%= f.input :client_id, 
-                    collection: User.all.map { |u| [u.full_name, u.id] }, 
+                    collection: User.order(:first_name).map { |u| [u.full_name, u.id] }, 
                     label: "Select Client", 
                     include_blank: "Choose a client", 
                     input_html: { class: "form-select" }, 
