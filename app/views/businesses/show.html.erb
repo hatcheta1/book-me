@@ -34,36 +34,27 @@
             <% end %>
           </div>
 
-          <% @business_hours.each do |day_hours| %>
             <ul class="list-group list-group-flush">
-              <% if !day_hours.closed %>
-                <li class="list-group-item">
-                  <%= day_hours.day_of_the_week %>:
-                  <%= day_hours.opening_time.strftime("%l:%M %P") %> - 
-                  <%= day_hours.closing_time.strftime("%l:%M %P") %>
-                </li>
-              <% else %>
-                <li class="list-group-item">
-                  <%= day_hours.day_of_the_week %>: closed
-                </li>
-              <% end %>
-            </ul>
+          <% @business_hours.each do |day_hours| %>
+              <%= render "business_hours/business_hour", business_hour: day_hours %>
           <% end %>
+            </ul>
         </div>
       </div>
     </div>
 
-    <div class="col-md-8">
-      <h3 class="mt-4 d-flex justify-content-between">
-        Services
+    <div class="col-md-8 mt-4">
+      <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <h3>Services</h3>
         <% if @business.owner == current_user %>
           <%= link_to '/services/new', class: 'btn btn-primary' do %>
             Add a service
           <% end %>
         <% end %>
-      </h3>
+      </div>
 
-      <ul class="list-group">
+      <ul class="list-group list-group-flush">
         <% @business.services.each do |service| %>
           <%= render 'services/list_group_item', service: service, business: @business %>
         <% end %>
