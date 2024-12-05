@@ -1,25 +1,27 @@
-<div id="<%= dom_id service %>" class="list-group-item">
-  <p>
-    <strong>Service:</strong>
-    <%= service.name %>
-  </p>
+<div id="<%= dom_id service %>" class="list-group-item d-flex justify-content-between">
+  <div>
+    <p>
+      <strong><%= service.name %></strong>
+    </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= service.description %>
-  </p>
+    <p>
+      <small><%= service.description %></small>
+    </p>
 
-  <p>
-    <strong>Duration:</strong>
-    <%= service.to_time %>
-  </p>
+    <p>
+      <strong>Duration:</strong>
+      <%= service.to_time %>
+    </p>
 
-  <p>
-    <strong>Price:</strong>
-    $<%= service.price %>
-  </p>
+    <p>
+      <strong>Price:</strong>
+      $<%= service.price %>
+    </p>
+  </div>
 
-  <p>
-  <%= link_to "Edit", edit_service_path(service), class: "btn btn-secondary" %>
-  </p>
+  <div class="ms-auto">
+    <p>
+      <%= link_to "Edit", edit_service_path(service), class: "btn btn-secondary" %>
+    </p>
+  </div>
 </div>

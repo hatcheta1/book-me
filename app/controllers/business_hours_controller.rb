@@ -21,7 +21,7 @@ class BusinessHoursController < ApplicationController
 
   # POST /business_hours or /business_hours.json
   def create
-    @business_hour = BusinessHour.new(business_hour_params)
+    @business_hour = current_user.business_hours.new(business_hour_params)
 
     respond_to do |format|
       if @business_hour.save
@@ -38,7 +38,7 @@ class BusinessHoursController < ApplicationController
   def update
     respond_to do |format|
       if @business_hour.update(business_hour_params)
-        format.html { redirect_to business_hour_url(@business_hour), notice: "Business hour was successfully updated." }
+        format.html { redirect_to business_hours_url, notice: "Business hour was successfully updated." }
         format.json { render :show, status: :ok, location: @business_hour }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,8 +63,30 @@ class BusinessHoursController < ApplicationController
       @business_hour = BusinessHour.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Only allow a list of trusted parameters through
     def business_hour_params
-      params.require(:business_hour).permit(:business_id, :day_of_the_week, :opening_time, :closing_time, :closed)
+      params.require(:business_hour).permit(:business_id, :day_of_the_week, :closed).tap do |whitelisted|
+        
+        # Convert opening time if provided
+        if params[:opening_time].present? && params[:opening_time_period].present?
+          whitelisted[:opening_time] = to_24_hour_time(
+            params[:opening_time], params[:opening_time_period]
+          )
+        end
+    
+        # Convert closing time if provided
+        if params[:closing_time].present? && params[:closing_time_period].present?
+          whitelisted[:closing_time] = to_24_hour_time(
+            params[:closing_time], params[:closing_time_period]
+          )
+        end
+      end
+    end
+
+    def to_24_hour_time(time, period)
+      hour, minute = time.split(':').map(&:to_i)
+      hour += 12 if period == 'PM' && hour != 12
+      hour = 0 if period == 'AM' && hour == 12
+      "#{format('%02d', hour)}:#{format('%02d', minute)}"
     end
 end

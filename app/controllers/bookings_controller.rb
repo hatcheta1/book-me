@@ -47,7 +47,11 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to bookings_path, notice: "Booking was successfully created." }
+        if @booking.status == "accepted"
+          format.html { redirect_to business_bookings_path(@booking.business.name), notice: "Booking was successfully created." }
+        else
+          format.html { redirect_to client_bookings_path(@booking.client.username), notice: "Booking was successfully created." }
+        end
         format.json { render :show, status: :created, location: @booking }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -74,7 +78,11 @@ class BookingsController < ApplicationController
     @booking.destroy!
 
     respond_to do |format|
-      format.html { redirect_to bookings_url, notice: "Booking was successfully destroyed." }
+      if current_user == @booking.business.owner
+        format.html { redirect_to business_bookings_url(@booking.business.name), notice: "Booking was successfully destroyed." }
+      elsif current_user == @booking.client
+        format.html { redirect_to client_bookings_url(@booking.client.username), notice: "Booking was successfully destroyed." }
+      end
       format.json { head :no_content }
     end
   end

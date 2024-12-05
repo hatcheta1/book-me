@@ -26,6 +26,8 @@ class Business < ApplicationRecord
 
   has_one_attached :logo
 
+  has_one :time_zone, through: :owner
+
   has_many :business_hours
 
   has_many :services

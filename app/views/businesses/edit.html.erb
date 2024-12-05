@@ -1,10 +1,13 @@
-<h1>Editing business</h1>
+<div class="d-flex justify-content-center align-items-center">
+  <div class="col-md-6">
+    <h1>Editing business</h1>
 
-<%= render "form", business: @business %>
+    <%= render "form", business: @business %>
 
-<br>
+    <br>
 
-<div>
-  <%= link_to "Show this business", @business %> |
-  <%= link_to "Back to businesses", businesses_path %>
+    <div>
+      <%= link_to "Back", business_path(@business.id), class: "btn btn-secondary" %>
+    </div>
+  </div>
 </div>

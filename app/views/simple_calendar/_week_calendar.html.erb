@@ -1,21 +1,24 @@
 <div class="simple-calendar">
   <div class="calendar-heading">
     <span class="calendar-title">
-      <%= t('simple_calendar.week', default: 'Week') %>
-      <%= calendar.week_number %>
-      <% if calendar.number_of_weeks > 1 %>
-        - <%= calendar.end_week %>
-      <% end %>
+      <h1>
+        <%= t('date.month_names')[start_date.month] %> <%= start_date.year %>
+      </h1>
     </span>
 
-    <nav>
-      <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
-      <%= link_to t('simple_calendar.today', default: 'Today'), calendar.url_for_today_view %>
-      <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
+    <nav class="btn-group">
+      <%= link_to calendar.url_for_previous_view, class: "btn btn-primary" do %>
+        <i class="fa-solid fa-chevron-left"></i> <%= t('simple_calendar.previous', default: 'Previous') %>
+      <% end %>
+      <%= link_to t('simple_calendar.today', default: 'Today'), calendar.url_for_today_view, class: "btn btn-secondary" %>
+      <%= link_to calendar.url_for_next_view, class: "btn btn-primary" do %>
+        <%= t('simple_calendar.next', default: 'Next') %> <i class="fa-solid fa-chevron-right"></i> 
+      <% end %>
     </nav>
+
   </div>
 
-  <table class="table table-striped">
+  <table class="table table-striped mt-3">
     <thead>
       <tr>
         <% date_range.slice(0, 7).each do |day| %>

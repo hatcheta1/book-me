@@ -1,0 +1,32 @@
+.simple-calendar {
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+.simple-calendar table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+.simple-calendar th, .simple-calendar td {
+  width: calc = 14.28%; 
+  vertical-align: top;
+  border: none;
+  position: relative;
+}
+
+.simple-calendar td {
+  height: 100px;
+  width: 14.28%;
+  border-bottom: 1px solid #ddd; /* Removes the border around each day */
+  background: white; /* Removes any background color styling */
+  text-align: center; /* Centers the day number in the cell */
+  padding: 10px; /* Adjust padding as needed */
+}
+
+.simple-calendar th {
+  background-color: #92bf72;
+  text-align: center;
+}

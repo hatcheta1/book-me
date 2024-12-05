@@ -1,18 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Your Bookings</h1>
+
+<hr>
 
 <% upcoming_bookings, past_bookings = @bookings.partition { |booking| booking.started_at > Time.current } %>
 
 <% if current_user.sent_bookings.count > 0 %>
-  <h3 class="mt-2">Upcoming Bookings</h3>
+  <h3 class="mt-2"><%= "Upcoming Bookings" if upcoming_bookings.count > 0 %></h3>
   <ul class="list-group">
     <% upcoming_bookings.each do |booking| %>
       <%= render 'bookings/list_group_item', booking: booking %>
     <% end %>
   </ul>
 
-  <h3 class="mt-2">Past Bookings</h3>
+  <h3 class="mt-2"><%= "Past Bookings" if past_bookings.count > 0 %></h3>
   <ul class="list-group">
     <% past_bookings.each do |booking| %>
       <%= render 'bookings/list_group_item', booking: booking %>

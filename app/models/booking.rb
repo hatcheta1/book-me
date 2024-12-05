@@ -33,11 +33,11 @@ class Booking < ApplicationRecord
 
   validates :started_at, :ended_at, presence: true
 
+  before_validation :ensure_ended_at_has_value, on: :create
+  before_validation :convert_times_to_business_timezone
+
   validate :time_slot_availability, on: :create
   validate :within_business_hours, on: :create
-
-  before_validation :ensure_ended_at_has_value
-  before_validation :convert_times_to_business_timezone
 
   enum status: { pending: 0, accepted: 1, declined: 2 }, _default: :pending
 
@@ -46,7 +46,7 @@ class Booking < ApplicationRecord
   end 
 
   def format_date(time)
-    time.strftime("%B %e, %Y")
+    time.strftime("%a, %B %e")
   end 
 
   # Attributes for simple_calendar gem
@@ -73,21 +73,24 @@ class Booking < ApplicationRecord
     
     # Find the business hours for that day
     business_hour = business.business_hours.find_by(day_of_the_week: day_of_week)
-
-    opening_time = business_hour.adjusted_opening_time
-    closing_time = business_hour.adjusted_closing_time
-
+    
+    if !business_hour.closed
+      opening_time = business_hour.adjusted_opening_time.strftime("%H:%M:%S")
+      closing_time = business_hour.adjusted_closing_time.strftime("%H:%M:%S")
+  
     # Validate against the business's open and close times
-    if business_hour.closed || business_hour.nil?
+      if business_hour.closed || business_hour.nil?
+        errors.add(:base, "The business is closed on #{day_of_week}.")
+      elsif started_at.strftime("%H:%M:%S") < opening_time || ended_at.strftime("%H:%M:%S") > closing_time
+        errors.add(:base, "The booking time is outside the business hours for #{day_of_week}.")
+      end
+    else
       errors.add(:base, "The business is closed on #{day_of_week}.")
-    elsif started_at < opening_time ||
-    ended_at > closing_time
-      errors.add(:base, "The booking time is outside the business hours for #{day_of_week}.")
     end
   end
 
   def ensure_ended_at_has_value
-    if ended_at.blank?
+    if !ended_at
       self.ended_at = started_at + service.duration.minutes
     end
   end

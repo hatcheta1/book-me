@@ -4,10 +4,6 @@
 
   <div class="form-inputs">
     <div class="mb-3">
-      <%= f.association :business, input_html: { class: "form-select" } %>
-    </div>
-
-    <div class="mb-3">
       <%= f.input :name, input_html: { class: "form-control" } %>
     </div>
 
@@ -35,6 +31,6 @@
   </div>
 
   <div class="form-actions d-grid mt-4">
-    <%= f.button :submit, "Save", class: "btn btn-primary btn-block" %>
+    <%= f.button :submit, "Save", class: "form-button" %>
   </div>
 <% end %>

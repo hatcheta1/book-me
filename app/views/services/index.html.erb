@@ -1,15 +1,18 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Services</h1>
-
-<%= link_to new_service_path, class: 'mb-3 btn btn-primary' do %>
+<h1 class="d-flex">
+  <div>
+    Services
+  </div>
+  <div class="ms-auto">
+    <%= link_to new_service_path, class: 'mb-3 btn btn-primary' do %>
       Add a service
     <% end %>
+  </div>
+</h1>
 
 <div id="services">
   <ul class="list-group">
     <% @services.each do |service| %>
-      <%= render service %>
+      <%= render "services/list_group_item", service: service %>
     <% end %>
   </ul>
 </div>

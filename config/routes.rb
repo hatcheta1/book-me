@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root "businesses#index"
-  
+  root "home#redirect_root"
+
   devise_for :users
   
   resources :bookings do

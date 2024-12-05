@@ -6,7 +6,7 @@
     <%= f.hidden_field :owner %>
 
     <div class="mb-3">
-      <%= f.input :name, input_html: { class: "form-control" } %>
+      <%= f.input :name, input_html: { class: "form-control" }, required: false %>
     </div>
 
     <div class="mb-3">
@@ -24,6 +24,6 @@
   </div>
 
   <div class="form-actions d-grid mt-4">
-    <%= f.button :submit, "Save", class: "btn btn-primary btn-block" %>
+    <%= f.button :submit, "Save", class: "form-button" %>
   </div>
 <% end %>
