@@ -25,12 +25,6 @@
 
               </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-        <li class="nav-item">
-          <%= render "search/button" %>
-          <%= render "search/modal" %>
-        </li>
-
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to "Edit profile", edit_user_registration_path, class: "nav-link active" %>
@@ -46,6 +40,11 @@
             <%= link_to "Sign up", new_user_registration_path, class: "nav-link active" %>
           </li>
         <% end %>
+
+         <li class="nav-item">
+          <%= render "search/button" %>
+          <%= render "search/modal" %>
+        </li>
       </ul>
     </div>
   </div>
