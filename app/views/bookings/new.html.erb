@@ -11,7 +11,11 @@
     <br>
 
     <div>
-      <%= link_to "Back", :back, class: "btn btn-secondary" %>
+      <% if current_user != @booking.business.owner %>
+        <%= link_to "Back to #{@booking.business.name}", business_path(@booking.business.id), class: "btn btn-secondary" %>
+      <% else %>
+        <%= link_to "Back to bookings", business_bookings_path(@booking.business.name), class: "btn btn-secondary" %>
+      <% end %>
     </div>
   <div>
 </div>
