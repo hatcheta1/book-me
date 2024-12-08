@@ -33,4 +33,10 @@ class BusinessPolicy < ApplicationPolicy
   def destroy?
     user == business.owner
   end
+
+  class Scope < Scope
+    def resolve
+      scope.all
+    end
+  end
 end

@@ -4,10 +4,11 @@ class BusinessesController < ApplicationController
   before_action :normalize_business_name, only: :calendar
   before_action :authorize_business, except: %i[ index show ]
   skip_after_action :verify_authorized, only: %i[ index show ]
+  skip_after_action :verify_policy_scoped, except: %i[ index ]
 
   # GET /businesses or /businesses.json
   def index
-    @businesses = Business.all
+    @businesses = policy_scope(Business.all)
   end
 
   # GET /businesses/1 or /businesses/1.json
