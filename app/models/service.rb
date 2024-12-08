@@ -27,9 +27,9 @@ class Service < ApplicationRecord
 
   has_one_attached :photo
 
-  has_many :received_bookings, class_name: "Booking"
+  has_many :received_bookings, class_name: "Booking", dependent: :destroy
   
-  has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking"
+  has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking", dependent: :destroy
 
   def to_s
     "#{name} at #{business}"

@@ -42,7 +42,7 @@ class User < ApplicationRecord
   
   has_one_attached :profile_picture
 
-  has_many :businesses, foreign_key: :owner_id
+  has_many :businesses, foreign_key: :owner_id, dependent: :destroy
 
   has_many :business_hours, through: :businesses
 
