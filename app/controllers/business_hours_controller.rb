@@ -1,13 +1,10 @@
 class BusinessHoursController < ApplicationController
   before_action :set_business_hour, only: %i[ show edit update destroy ]
+  before_action :authorize_business_hour
 
   # GET /business_hours or /business_hours.json
   def index
-    @business_hours = current_user.business_hours
-  end
-
-  # GET /business_hours/1 or /business_hours/1.json
-  def show
+    @business_hours = policy_scope(current_user.business_hours)
   end
 
   # GET /business_hours/new
@@ -88,5 +85,9 @@ class BusinessHoursController < ApplicationController
       hour += 12 if period == 'PM' && hour != 12
       hour = 0 if period == 'AM' && hour == 12
       "#{format('%02d', hour)}:#{format('%02d', minute)}"
+    end
+
+    def authorize_business_hour
+      authorize(@business_hour || BusinessHour)
     end
 end
