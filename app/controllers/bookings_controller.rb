@@ -23,6 +23,9 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
+    @q = User.ransack(params[:q])
+    @clients = @q.result
+    
     @booking = Booking.new(
       business_id: params[:business_id],
       service_id: params[:service_id]
