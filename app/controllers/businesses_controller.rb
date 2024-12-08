@@ -2,6 +2,8 @@ class BusinessesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_business, only: %i[ show edit update destroy ]
   before_action :normalize_business_name, only: :calendar
+  before_action :authorize_business, except: %i[ index show ]
+  skip_after_action :verify_authorized, only: %i[ index show ]
 
   # GET /businesses or /businesses.json
   def index
@@ -89,5 +91,9 @@ class BusinessesController < ApplicationController
       if params[:business_name].include?(" ")
         redirect_to business_calendar_path(business_name: params[:business_name].tr(" ", "_")), status: :moved_permanently
       end
+    end
+
+    def authorize_business
+      authorize(@business || Business)
     end
 end
