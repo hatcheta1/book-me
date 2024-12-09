@@ -44,9 +44,9 @@ class User < ApplicationRecord
 
   has_many :businesses, foreign_key: :owner_id, dependent: :destroy
 
-  has_many :business_hours, through: :businesses
+  has_many :business_hours, through: :businesses, foreign_key: :owner_id
 
-  has_many :services, through: :businesses
+  has_many :services, through: :businesses, foreign_key: :owner_id
 
   has_many :sent_bookings, foreign_key: :client_id, class_name: "Booking"
   
