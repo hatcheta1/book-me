@@ -34,6 +34,10 @@ class BusinessPolicy < ApplicationPolicy
     user == business.owner
   end
 
+  def calendar?
+    user == business.owner
+  end
+
   class Scope < Scope
     def resolve
       scope.all

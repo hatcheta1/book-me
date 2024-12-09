@@ -2,13 +2,13 @@ class BusinessesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_business, only: %i[ show edit update destroy ]
   before_action :normalize_business_name, only: :calendar
-  before_action :authorize_business, except: %i[ index show ]
+  before_action :authorize_business, except: %i[ index show calendar ]
   skip_after_action :verify_authorized, only: %i[ index show ]
   skip_after_action :verify_policy_scoped, except: %i[ index ]
 
   # GET /businesses or /businesses.json
   def index
-    @businesses = policy_scope(Business.all)
+    @businesses = policy_scope(Business)
   end
 
   # GET /businesses/1 or /businesses/1.json
@@ -68,6 +68,8 @@ class BusinessesController < ApplicationController
 
   def calendar
     @business = Business.find_by(name: params[:business_name].tr("_", " "))
+    authorize @business
+    
     if @business.nil?
       redirect_to root_path, alert: "Business not found."
       return
