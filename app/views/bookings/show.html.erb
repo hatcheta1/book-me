@@ -7,5 +7,5 @@
     <%= link_to "Back to bookings", business_bookings_path(@booking.business.name), class: "btn btn-secondary" %>
     <%= link_to "Edit booking", edit_booking_path(@booking), class: "btn btn-primary" %>
   <% end %>
-    <%= button_to "Cancel booking", booking_path(@booking.id), method: :delete, class: "btn btn-danger" %>
+    <%= button_to "Cancel booking", booking_path(@booking), method: :delete, class: "btn btn-danger" %>
 </div>

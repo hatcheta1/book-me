@@ -83,6 +83,7 @@ gem "faker"
 gem "htmlbeautifier"
 gem "http"
 gem 'pg_search'
+gem "pundit", "~> 2.4"
 gem "simple_calendar"
 gem "sqlite3", "~> 1.4"
 gem "table_print"
