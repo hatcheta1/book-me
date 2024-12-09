@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :services
   resources :search, only: [:index]
   resources :users, only: [:index]
+  resources :home, only: [:index]
 
   get "/businesses/:business_name/bookings", to: "bookings#index_for_business", as: :business_bookings
   get "/users/:username/bookings",to: "bookings#index_for_client", as: :client_bookings

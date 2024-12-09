@@ -55,9 +55,9 @@ task({ :sample_data => :environment }) do
   users = User.all
 
   central_time_users = users.select { |user| user.time_zone == "Central Time (US & Canada)" }
+  central_time_users_to_sample = central_time_users.reject { |user| user.username == "ashanti" }
 
-  # Create 5 businesses in Chicago
-  central_time_users.sample(15).each do |user|
+  central_time_users_to_sample.sample(15).each do |user|
     Business.create!(
       name: "#{Faker::Adjective.positive.capitalize} Hair",
       about: Faker::Company.catch_phrase,
