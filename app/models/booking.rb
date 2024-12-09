@@ -31,7 +31,7 @@ class Booking < ApplicationRecord
   
   belongs_to :service
 
-  validates :started_at, :ended_at, presence: true
+  validates :started_at, :ended_at, :business_id, :client_id, :service_id, presence: true
 
   before_validation :ensure_ended_at_has_value, on: :create
   before_validation :convert_times_to_business_timezone
