@@ -31,6 +31,8 @@ class Service < ApplicationRecord
   
   has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking"
 
+  validates :name, :duration, :price, presence: true
+
   def to_s
     "#{name} at #{business}"
   end

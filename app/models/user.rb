@@ -56,7 +56,7 @@ class User < ApplicationRecord
   
   has_many :accepted_received_bookings, -> { where status: accepted }, foreign_key: :owner_id, class_name: "Booking"
 
-  validates :time_zone, presence: true
+  validates :first_name, :last_name, :username, :email, :time_zone, presence: true
 
   def full_name
     "#{first_name} #{last_name}"

@@ -36,7 +36,7 @@ class Business < ApplicationRecord
 
   has_many :accepted_received_bookings, -> { where(status: :accepted) }, class_name: "Booking", dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, :address, presence: true
 
   after_create :initialize_business_hours
 
