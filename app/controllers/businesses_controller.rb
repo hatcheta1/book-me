@@ -13,8 +13,8 @@ class BusinessesController < ApplicationController
 
   # GET /businesses/1 or /businesses/1.json
   def show
-    @business_hours = @business.business_hours.sort_by do |hour|
-      BusinessHour::DAYS_OF_THE_WEEK.index(hour.day_of_the_week)
+    @business_hours = @business.business_hours.sort_by do |day_hours|
+      BusinessHour::DAYS_OF_THE_WEEK.index(day_hours.day_of_the_week)
     end
   end
 
