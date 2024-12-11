@@ -4,22 +4,21 @@
     <title>BookMe</title>
     <%= favicon_link_tag 'favicon.png', type: 'image/png' %>
 
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= render partial: "shared/cdn_assets" %>
+    <%= render "shared/cdn_assets" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+
     <%= javascript_importmap_tags %>
+
+    <link rel="manifest" href="/manifest.json" />
   </head>
 
   <body>
-    <% if user_signed_in? && current_user.businesses.present? %>
-      <%= render "shared/business_owner_navbar" %>
-    <% else %>
-      <%= render "shared/client_navbar" %>
-    <% end %>
+    <%= render "shared/navbar" %>
 
     <div class="container">
       <% if notice.present? %>

@@ -1,0 +1,51 @@
+.simple-calendar {
+  max-width: 100%;
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+.simple-calendar table {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed;
+}
+
+.simple-calendar th, .simple-calendar td {
+  width: 14.28%; 
+  vertical-align: top;
+  border: none;
+  position: relative;
+}
+
+.simple-calendar td {
+  height: 100px;
+  width: 14.28%;
+  border-bottom: 1px solid #ddd;
+  background: white; 
+  text-align: center;
+  padding: 10px;
+}
+
+.simple-calendar th {
+  background-color: #92bf72;
+  text-align: center;
+}
+
+.simple-calendar td a.card {
+  display: block;
+  width: 100%; 
+  text-align: left;
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+}
+
+.simple-calendar td .card-body {
+  padding: 5px;
+}
+
+@media (max-width: 700px) {
+  .simple-calendar td {
+    height: auto; 
+  } 
+}

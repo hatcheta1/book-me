@@ -1,34 +1,48 @@
-
-<%= simple_form_for(@booking) do |f| %>
+<%= simple_form_for(@booking, html: { class: 'needs-validation' }) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
+  <div class="form-inputs mb-3">
     <% if current_user.businesses.exists?(id: @booking.business_id) %>
-      <%= f.input :client_id, 
-                  collection: User.all.map { |u| [u.full_name, u.id] }, 
-                  label: "Select Client", 
-                  include_blank: "Choose a client" %>
-      <%= f.input :service_id, 
-                  collection: @booking.business.services.map { |s| [s.name, s.id] }, 
-                  label: "Select Service", 
-                  include_blank: "Choose a service" %>
+      <div class="mb-3">
+        <%= f.input :client_id, 
+                    collection: User.order(:first_name).map { |u| [u.full_name, u.id] }, 
+                    label: "Select Client", 
+                    include_blank: "Choose a client", 
+                    input_html: { class: "form-select" }, 
+                    label_html: { class: "form-label" } %>
+      </div>
+      <div class="mb-3">
+        <%= f.input :service_id, 
+                    collection: @booking.business.services.map { |s| [s.name, s.id] }, 
+                    label: "Select Service", 
+                    include_blank: "Choose a service", 
+                    input_html: { class: "form-select" }, 
+                    label_html: { class: "form-label" } %>
+      </div>
     <% else %>
       <%= f.hidden_field :client_id, value: current_user.id %>
       <%= f.hidden_field :service_id, value: @booking.service_id %>
     <% end %>
   
     <%= f.hidden_field :business_id, value: @booking.business_id %>
-    <%= f.input :started_at, 
-            as: :datetime, 
-            html5: true, 
-            input_html: { class: "form-control", value: @booking.started_at&.in_time_zone(@booking.business.time_zone)&.strftime("%Y-%m-%dT%H:%M") }, 
-            label_html: { class: "form-label" }, 
-            label: "Start Time" %>
+
+    <div class="mb-3">
+      <%= f.input :started_at, 
+                  as: :datetime, 
+                  html5: true, 
+                  input_html: { 
+                    class: "form-control", 
+                    value: @booking.started_at&.in_time_zone(@booking.business.time_zone)&.strftime("%Y-%m-%dT%H:%M")
+                  }, 
+                  label_html: { class: "form-label" }, 
+                  label: "Start Time",
+                  required: false %>
+    </div>
     <%= f.hidden_field :ended_at %>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actionsm d-grid mt-4">
+    <%= f.button :submit, class: "btn btn-primary" %>
   </div>
 <% end %>

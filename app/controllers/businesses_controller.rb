@@ -1,16 +1,20 @@
 class BusinessesController < ApplicationController
+  skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_business, only: %i[ show edit update destroy ]
   before_action :normalize_business_name, only: :calendar
+  before_action :authorize_business, except: %i[ index show calendar ]
+  skip_after_action :verify_authorized, only: %i[ index show ]
+  skip_after_action :verify_policy_scoped, except: %i[ index ]
 
   # GET /businesses or /businesses.json
   def index
-    @businesses = Business.all
+    @businesses = policy_scope(Business)
   end
 
   # GET /businesses/1 or /businesses/1.json
   def show
-    @business_hours = @business.business_hours.sort_by do |hour|
-      BusinessHour::DAYS_OF_THE_WEEK.index(hour.day_of_the_week)
+    @business_hours = @business.business_hours.sort_by do |day_hours|
+      BusinessHour::DAYS_OF_THE_WEEK.index(day_hours.day_of_the_week)
     end
   end
 
@@ -64,13 +68,13 @@ class BusinessesController < ApplicationController
 
   def calendar
     @business = Business.find_by(name: params[:business_name].tr("_", " "))
+    authorize @business
+    
     if @business.nil?
       redirect_to root_path, alert: "Business not found."
       return
     end
-    @bookings = @business.accepted_received_bookings.where(
-      "started_at >= ? AND started_at <= ?", Date.today.beginning_of_week, Date.today.end_of_week
-  )
+    @bookings = @business.accepted_received_bookings.for_this_week
   end
 
   private
@@ -88,5 +92,9 @@ class BusinessesController < ApplicationController
       if params[:business_name].include?(" ")
         redirect_to business_calendar_path(business_name: params[:business_name].tr(" ", "_")), status: :moved_permanently
       end
+    end
+
+    def authorize_business
+      authorize(@business || Business)
     end
 end

@@ -1,0 +1,41 @@
+<div class="primary-color text-center py-5 mb-5">
+  <h1 class="display-4">Welcome to <strong>BookMe!</strong></h1>
+  <p class="lead">On BookMe, Stylists can manage their appointments more efficiently, while clients enjoy a hassle-free way to secure appointments.</p>
+  <%= image_tag asset_path('favicon.png'), width: "80", height: "80", class: "mt-3" %>
+</div>
+
+<div class="container mt-2">
+  <div class="row align-items-center mb-5 bg-light py-4">
+    <div class="col-md-6 text-end pe-4">
+      <div class="card border-0 shadow-sm p-4">
+      <i class="fa-solid fa-magnifying-glass mb-1"></i>
+        <p class="fs-5 mb-0 text-center">Search for businesses based on their name, location, or offered services!</p>
+      </div>
+      <div class="d-flex justify-content-center mt-3">
+      <%= render "search/alternate_button" %>
+          <%= render "search/modal" %>
+          </div>
+    </div>
+    <div class="col-md-6">
+      <video class="w-100 rounded" title="A client searching for a business that offers a blowout, going to the business page and scheduling an appointment" autoplay loop muted playsinline>
+        <source src="<%= asset_path('make_booking.mp4') %>" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <div class="row align-items-center bg-white py-4">
+    <div class="col-md-6">
+      <video class="w-100 rounded" title="A user clicking the 'Add my business' button on their edit profile page" autoplay loop muted playsinline>
+        <source src="<%= asset_path('add_business.mp4') %>" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="col-md-6 text-end pe-4">
+      <div class="card border-0 shadow-sm p-4">
+      <i class="fa-regular fa-calendar mb-1"></i>
+      <p class="fs-5 text-center">Ready to start managing your appointments with BookMe? Go to your edit profile page to add your business!</p>
+    </div>
+    </div>
+  </div>
+</div>

@@ -1,17 +1,33 @@
-
-<%= simple_form_for(business_hour) do |f| %>
+<%= simple_form_for(business_hour, html: { class: 'needs-validation' }) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.association :business %>
-    <%= f.select :day_of_the_week, BusinessHour::DAYS_OF_THE_WEEK %>
-    <%= f.input :opening_time %>
-    <%= f.input :closing_time %>
-    <%= f.input :closed %>
+  <div class="row g-3">
+    <div class="col-12">
+      <%= f.label :opening_time, "Opening Time", class: "form-label" %>
+      <div class="input-group">
+        <%= text_field_tag :opening_time, @business_hour.opening_time&.strftime("%I:%M"), class: "form-control", placeholder: "HH:MM" %>
+        <%= select_tag :opening_time_period, options_for_select([['AM', 'AM'], ['PM', 'PM']], selected: 'AM'), class: 'form-select' %>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <%= f.label :closing_time, "Closing Time", class: "form-label" %>
+      <div class="input-group">
+        <%= text_field_tag :closing_time, @business_hour.closing_time&.strftime("%I:%M"), class: "form-control", placeholder: "HH:MM" %>
+        <%= select_tag :closing_time_period, options_for_select([['AM', 'AM'], ['PM', 'PM']], selected: 'PM'), class: 'form-select' %>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <%= f.input :closed, 
+                  as: :boolean, 
+                  label_html: { class: 'form-label' }, 
+                  input_html: { class: 'form-check-input' } %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions d-grid mt-4">
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>

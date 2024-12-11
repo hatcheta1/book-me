@@ -76,13 +76,15 @@ end
 gem "active_link_to"
 gem "appdev_support"
 gem "awesome_print"
-gem 'aws-sdk-s3', require: false
+gem "aws-sdk-s3", require: false
 gem "devise"
 gem "dotenv"
 gem "faker"
 gem "htmlbeautifier"
 gem "http"
 gem "meta-tags", "~> 2.22"
+gem 'pg_search'
+gem "pundit", "~> 2.4"
 gem "simple_calendar"
 gem "sqlite3", "~> 1.4"
 gem "table_print"
@@ -99,6 +101,7 @@ group :development do
   gem "pry-rails"
   gem "rails_db"
   gem "rails-erd"
+  gem "rubocop-rails-omakase", require: false
   gem "rufo"
   gem "specs_to_readme"
 end

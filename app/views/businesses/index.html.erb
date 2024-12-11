@@ -1,25 +1,13 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Businesses</h1>
-
-<div id="businesses">
-  <% @businesses.each do |business| %>
-  <div>
-    <%= business.name %>
-  </div>
-
-  <div>
-    <%= business.address %>
-  </div>
-
-  <div>
-    Owner: <%= business.owner.full_name %>
-  </div>
-   
-    <p>
-      <%= link_to "Show this business", business %>
-    </p>
-  <% end %>
+<div class="text-center primary-color">
+  <h2>Businesses on BookMe</h2>
 </div>
 
-<%= link_to "New business", new_business_path %>
+<div class="container mt-4">
+  <div class="masonry-grid">
+    <% @businesses.each do |business| %>
+      <div class="masonry-item">
+        <%= render "businesses/card", business: business %>
+      </div>
+    <% end %>
+  </div>
+</div>

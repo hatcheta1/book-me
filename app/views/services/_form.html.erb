@@ -1,18 +1,36 @@
-
-<%= simple_form_for(@service) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<%= simple_form_for(@service, html: { class: "needs-validation", novalidate: true }) do |f| %>
+  <%= f.error_notification class: "alert alert-danger" %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence, class: "alert alert-danger" if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.association :business %>
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :duration %>
-    <%= f.input :price %>
-    <%= f.file_field :photo %>
+    <div class="mb-3">
+      <%= f.input :name, input_html: { class: "form-control" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.input :description, as: :text, input_html: { class: "form-control" } %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.input :duration, input_html: { class: "form-control" } %>
+    </div>
+
+<div class="mb-3">
+      <%= f.label :price, "Price", class: "form-label" %>
+      <div class="input-group">
+        <span class="input-group-text">$</span>
+        <%= f.input :price, input_html: { class: "form-control", aria: { label: "Amount (to the nearest dollar)" } }, placeholder: "0", label: false %>
+        <span class="input-group-text">.00</span>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :photo, class: "form-label" %>
+      <%= f.file_field :photo, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions d-grid mt-4">
+    <%= f.button :submit, "Save", class: "form-button" %>
   </div>
 <% end %>
