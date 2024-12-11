@@ -76,7 +76,7 @@ end
 gem "active_link_to"
 gem "appdev_support"
 gem "awesome_print"
-gem 'aws-sdk-s3', require: false
+gem "aws-sdk-s3", require: false
 gem "devise"
 gem "dotenv"
 gem "faker"
@@ -100,6 +100,7 @@ group :development do
   gem "pry-rails"
   gem "rails_db"
   gem "rails-erd"
+  gem "rubocop-rails-omakase", require: false
   gem "rufo"
   gem "specs_to_readme"
 end

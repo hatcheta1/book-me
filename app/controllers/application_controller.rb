@@ -12,9 +12,9 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, :keys => [:username, :first_name, :last_name, :profile_picture, :time_zone])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :username, :first_name, :last_name, :profile_picture, :time_zone ])
 
-    devise_parameter_sanitizer.permit(:account_update, :keys => [:first_name, :last_name, :profile_picture, :time_zone])
+    devise_parameter_sanitizer.permit(:account_update, keys: [ :first_name, :last_name, :profile_picture, :time_zone ])
   end
 
   private

@@ -1,5 +1,5 @@
 desc "Fill the database tables with some sample data"
-task({ :sample_data => :environment }) do
+task({ sample_data: :environment }) do
   starting = Time.now
 
   Booking.delete_all
@@ -11,7 +11,7 @@ task({ :sample_data => :environment }) do
   people = Array.new(30) do
     {
       first_name: Faker::Name.first_name,
-      last_name: Faker::Name.last_name,
+      last_name: Faker::Name.last_name
     }
   end
 
@@ -55,9 +55,9 @@ task({ :sample_data => :environment }) do
   users = User.all
 
   central_time_users = users.select { |user| user.time_zone == "Central Time (US & Canada)" }
+  central_time_users_to_sample = central_time_users.reject { |user| user.username == "ashanti" }
 
-  # Create 5 businesses in Chicago
-  central_time_users.sample(15).each do |user|
+  central_time_users_to_sample.sample(15).each do |user|
     Business.create!(
       name: "#{Faker::Adjective.positive.capitalize} Hair",
       about: Faker::Company.catch_phrase,
@@ -75,7 +75,7 @@ task({ :sample_data => :environment }) do
 
   businesses = Business.all
 
-  hairstyles = ["Braids", "Haircut", "Color", "Retwist", "Faux Locs", "Starter Locs", "Blowout", "Wash and Style", "Goddess Twists", "Cornrows", "Knotless Braids"]
+  hairstyles = [ "Braids", "Haircut", "Color", "Retwist", "Faux Locs", "Starter Locs", "Blowout", "Wash and Style", "Goddess Twists", "Cornrows", "Knotless Braids" ]
 
   businesses.each do |business|
     unique_services = hairstyles.shuffle.take(5) # Select 5 unique hairstyles for the business
@@ -106,7 +106,7 @@ task({ :sample_data => :environment }) do
       end
     end
   end
-  
+
   ending = Time.now
   p "It took #{(ending - starting).to_i} seconds to create sample data."
   p "There are now #{User.count} users."

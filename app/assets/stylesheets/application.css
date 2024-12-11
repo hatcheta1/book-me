@@ -15,6 +15,25 @@
  *= require calendar
  */
 
+ .primary-color {
+  background-color: #92bf72;
+  border: 2px solid black;
+ }
+
+ video {
+  width: 40%;
+  height: auto;
+  max-height: 500px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+video:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
 .masonry-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));

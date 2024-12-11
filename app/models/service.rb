@@ -21,7 +21,7 @@
 #
 class Service < ApplicationRecord
   include PgSearch::Model
-  multisearchable against: [:name, :description]
+  multisearchable against: [ :name, :description ]
 
   belongs_to :business
 
@@ -30,6 +30,8 @@ class Service < ApplicationRecord
   has_many :received_bookings, class_name: "Booking", dependent: :destroy
   
   has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking", dependent: :destroy
+
+  validates :name, :duration, :price, presence: true
 
   def to_s
     "#{name} at #{business}"

@@ -67,28 +67,20 @@ class BusinessHoursController < ApplicationController
     # Only allow a list of trusted parameters through
     def business_hour_params
       params.require(:business_hour).permit(:business_id, :day_of_the_week, :closed).tap do |whitelisted|
-        
-        # Convert opening time if provided
-        if params[:opening_time].present? && params[:opening_time_period].present?
-          whitelisted[:opening_time] = to_24_hour_time(
-            params[:opening_time], params[:opening_time_period]
-          )
-        end
-    
-        # Convert closing time if provided
-        if params[:closing_time].present? && params[:closing_time_period].present?
-          whitelisted[:closing_time] = to_24_hour_time(
-            params[:closing_time], params[:closing_time_period]
-          )
-        end
+        whitelisted[:opening_time] = to_24_hour_time(params[:opening_time], params[:opening_time_period]) if time_present?(:opening_time)
+        whitelisted[:closing_time] = to_24_hour_time(params[:closing_time], params[:closing_time_period]) if time_present?(:closing_time)
       end
     end
 
     def to_24_hour_time(time, period)
-      hour, minute = time.split(':').map(&:to_i)
-      hour += 12 if period == 'PM' && hour != 12
-      hour = 0 if period == 'AM' && hour == 12
-      "#{format('%02d', hour)}:#{format('%02d', minute)}"
+      hour, minute = time.split(":").map(&:to_i)
+      hour += 12 if period == "PM" && hour != 12
+      hour = 0 if period == "AM" && hour == 12
+      format("%02d:%02d", hour, minute)
+    end
+
+    def time_present?(time_key)
+      params["#{time_key}"].present? && params["#{time_key}_period"].present?
     end
 
     def authorize_business_hour

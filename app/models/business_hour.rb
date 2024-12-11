@@ -39,7 +39,7 @@ class BusinessHour < ApplicationRecord
   def adjusted_opening_time
     business_time_to_timezone(opening_time)
   end
-  
+
   def adjusted_closing_time
     business_time_to_timezone(closing_time)
   end
@@ -55,7 +55,7 @@ class BusinessHour < ApplicationRecord
   def business_time_to_timezone(time)
     if opening_time && closing_time
       return time unless business.owner.time_zone
-  
+
       Time.use_zone(business.owner.time_zone) do
         Time.zone.parse(time.strftime("%H:%M"))
       end

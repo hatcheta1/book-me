@@ -89,13 +89,11 @@ class BookingsController < ApplicationController
   end
 
   def accept
-    @booking.update!(status: :accepted)
-    redirect_to business_bookings_path(@booking.business.name), notice: "Booking accepted successfully."
+    update_booking_status(:accepted)
   end
 
   def decline
-    @booking.update!(status: :declined)
-    redirect_to business_bookings_path(@booking.business.name), alert: "Booking declined."
+    update_booking_status(:declined)
   end
 
   private
@@ -117,5 +115,10 @@ class BookingsController < ApplicationController
 
   def authorize_booking
     authorize(@booking || Booking)
+  end
+  
+  def update_booking_status(status)
+    @booking.update!(status: status)
+    redirect_to business_bookings_path(@booking.business.name), notice: "Booking #{status} successfully."
   end
 end
