@@ -33,15 +33,20 @@ class Booking < ApplicationRecord
 
   belongs_to :service
 
-  validates :started_at, :ended_at, presence: true
-
   before_validation :ensure_ended_at_has_value, on: :create
   before_validation :convert_times_to_business_timezone
-
+  
+  validates :started_at, :ended_at, presence: true
   validate :time_slot_availability, on: :create
   validate :within_business_hours, on: :create
 
+  after_create :send_booking_created_email
+
   enum status: { pending: 0, accepted: 1, declined: 2 }, _default: :pending
+
+  def send_booking_created_email
+    BookingMailer.with(user: client, booking: self).booking_created(self).deliver_now
+  end
 
   def format_time(time)
     time.strftime("%l:%M %P")

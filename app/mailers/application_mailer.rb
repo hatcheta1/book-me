@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "no-reply@example.com" # TODO: update when setting up production emails
   layout "mailer"
 end

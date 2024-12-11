@@ -1,0 +1,5 @@
+New Appointment Booked
+
+Hello <%= @user.first_name %>,
+
+You have scheduled a new appointment for <%= @booking.service.name %> with <%= @booking.business.name %> on <%= @booking.format_date(@booking.started_at) %> from <%= @booking.format_time(@booking.started_at) %> to <%= @booking.format_time(@booking.ended_at) %>.
