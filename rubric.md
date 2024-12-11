@@ -1,16 +1,16 @@
 # SDF Final Project Rubric - Technical
 
 ## Readme (max: 10 points)
-- [ ] **Markdown**: Is the README formatted using Markdown?
-- [ ] **Naming**: Is the repository name relevant to the project?
-- [ ] **1-liner**: Is there a 1-liner briefly describing the project?
-- [ ] **Instructions**: Are there detailed setup and installation instructions, ensuring a new developer can get the project running locally without external help?
-- [ ] **Configuration**: Are configuration instructions provided, such as environment variables or configuration files that need to be set up?
-- [ ] **Contribution**: Are there clear contribution guidelines? Do they outline how developers can contribute to the project, including coding conventions, branch naming conventions, and the pull request process?
-- [ ] **ERD**: Does the documentation include an entity relationship diagram?
-- [ ] **Troubleshooting**: Is there an FAQs or Troubleshooting section that addresses common issues, questions, or obstacles users or new contributors might face?
-- [ ] **Visual Aids**: Are there visual aids (diagrams, screenshots, etc.) that would help developers quickly ramp on to the project?
-- [ ] **API Documentation (for projects providing their own API endpoints)**: Is there clear and detailed documentation for the project's API? This should include descriptions of all endpoints, request/response formats, and authentication methods.
+- [x] **Markdown**: Is the README formatted using Markdown?
+- [x] **Naming**: Is the repository name relevant to the project?
+- [x] **1-liner**: Is there a 1-liner briefly describing the project?
+- [x] **Instructions**: Are there detailed setup and installation instructions, ensuring a new developer can get the project running locally without external help?
+- [x] **Configuration**: Are configuration instructions provided, such as environment variables or configuration files that need to be set up?
+- [x] **Contribution**: Are there clear contribution guidelines? Do they outline how developers can contribute to the project, including coding conventions, branch naming conventions, and the pull request process?
+- [x] **ERD**: Does the documentation include an entity relationship diagram?
+- [x] **Troubleshooting**: Is there an FAQs or Troubleshooting section that addresses common issues, questions, or obstacles users or new contributors might face?
+- [x] **Visual Aids**: Are there visual aids (diagrams, screenshots, etc.) that would help developers quickly ramp on to the project?
+- [x] **API Documentation (for projects providing their own API endpoints)**: Is there clear and detailed documentation for the project's API? This should include descriptions of all endpoints, request/response formats, and authentication methods.
 
 ### Score (/10):
 
