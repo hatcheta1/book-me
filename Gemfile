@@ -98,6 +98,7 @@ group :development do
   gem "dev_toolbar"
   gem "draft_generators"
   gem "grade_runner"
+  gem "letter_opener"
   gem "pry-rails"
   gem "rails_db"
   gem "rails-erd"

@@ -1,0 +1,7 @@
+<h1>New Appointment Booked</h1>
+
+<p>Hello <%= @user.first_name %>,</p>
+
+<p>
+You have scheduled a new appointment for <%= @booking.service.name %> with <%= @booking.business.name %> on <strong> <%= @booking.format_date(@booking.started_at) %> from <%= @booking.format_time(@booking.started_at) %> to <%= @booking.format_time(@booking.ended_at) %>. </strong>
+</p>
