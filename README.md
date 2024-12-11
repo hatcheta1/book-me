@@ -33,26 +33,26 @@ BookMe is an app where clients can book appointments and service providers (such
 
 ### Steps
 1. Clone the repository:
-`git clone https://github.com/hatcheta1/book-me.git`
+`git clone https://github.com/hatcheta1/book-me.git`.
 
 2. Install the required gems:
-`bundle install`
+`bundle install`.
 
 3. Set up the database:
-`rails db:setup`
+`rails db:setup`.
 
 4. Populate the database:
-`rake sample_data`
+`rake sample_data`.
 
 5. Start the Rails server:
-`bin/dev`
+`bin/dev`.
 
 ## Configuration
 There are no configurations at the moment. If you would like to implement something of that nature, please refer to [Rails credentials documentation](https://edgeguides.rubyonrails.org/security.html).
 
 ## Usage
 1. Start the Rails server:
-`bin/dev`
+`bin/dev`.
 
 2. Open your browser and navigate to http://localhost:3000.
 
