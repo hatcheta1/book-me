@@ -69,9 +69,7 @@ class BusinessesController < ApplicationController
       redirect_to root_path, alert: "Business not found."
       return
     end
-    @bookings = @business.accepted_received_bookings.where(
-      "started_at >= ? AND started_at <= ?", Date.today.beginning_of_week, Date.today.end_of_week
-  )
+    @bookings = @business.accepted_received_bookings.for_this_week
   end
 
   private

@@ -63,7 +63,11 @@ class Booking < ApplicationRecord
   def end_time
     ended_at.to_time
   end
-    
+
+  scope :for_this_week, -> {
+  where("started_at >= ? AND started_at <= ?", Date.today.beginning_of_week, Date.today.end_of_week)
+  }
+
   private
 
   def ensure_ended_at_has_value
