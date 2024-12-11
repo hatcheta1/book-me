@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  routes.default_url_options[:host] = 'https://animated-guacamole-jjw45rggxj52prqj-3000.app.github.dev/'
   # Allow server to be hosted on any URL
   config.hosts.clear
   # Allow better_errors to work in online IDE
@@ -50,9 +51,7 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'animated-guacamole-jjw45rggxj52prqj-3000.app.github.dev' }
-
-  Rails.application.routes.default_url_options[:host] = 'animated-guacamole-jjw45rggxj52prqj-3000.app.github.dev'
+  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
