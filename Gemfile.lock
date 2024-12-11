@@ -535,6 +535,7 @@ DEPENDENCIES
   http
   importmap-rails
   jbuilder
+  kaminari
   letter_opener
   meta-tags (~> 2.22)
   pg (~> 1.1)

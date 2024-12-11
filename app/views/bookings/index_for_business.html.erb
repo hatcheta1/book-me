@@ -28,3 +28,5 @@
 <% else %>
   You have no bookings. Schedule a new booking with a client, or have your client schedule a booking using this <%= link_to "link", business_path(@business.id) %>!
 <% end %>
+
+<%= paginate @bookings %>

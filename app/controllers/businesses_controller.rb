@@ -8,7 +8,7 @@ class BusinessesController < ApplicationController
 
   # GET /businesses or /businesses.json
   def index
-    @businesses = policy_scope(Business)
+    @businesses = policy_scope(Business).page(params[:page]).per(8)
   end
 
   # GET /businesses/1 or /businesses/1.json

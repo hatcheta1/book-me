@@ -7,7 +7,7 @@ class BookingsController < ApplicationController
 
   def index_for_business
     @business = current_user.businesses.first
-    @bookings = policy_scope(@business.received_bookings) if @business
+    @bookings = policy_scope(@business.received_bookings).page(params[:page]).per(8) if @business
   end
 
   def index_for_client

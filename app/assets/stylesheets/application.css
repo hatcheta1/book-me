@@ -15,6 +15,23 @@
  *= require calendar
  */
 
+ .page-link {
+  background-color: #92bf72;
+  color: black;
+  border-color: black;
+ }
+
+ .page-link.active {
+  background-color: white;
+  color: black;
+  border-color: black;
+ }
+
+ .page-link:hover {
+  background-color: white;
+  color: black;
+ }
+
  .primary-color {
   background-color: #92bf72;
   border: 2px solid black;
