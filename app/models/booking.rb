@@ -69,6 +69,14 @@ class Booking < ApplicationRecord
     ended_at.to_time
   end
 
+  def to_s
+    if current_user = client
+      "#{service.name} at #{business.name}"
+    else
+      "#{service.name} for #{client.full_name}"
+    end
+  end
+
   scope :for_this_week, -> {
   where("started_at >= ? AND started_at <= ?", Date.today.beginning_of_week, Date.today.end_of_week)
   }

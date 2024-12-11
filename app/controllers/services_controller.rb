@@ -7,6 +7,9 @@ class ServicesController < ApplicationController
   # GET /services or /services.json
   def index
     @services = policy_scope(Service)
+    @breadcrumbs = [
+      { content: "Services", href: services_path }
+    ]
   end
 
 
@@ -20,10 +23,18 @@ class ServicesController < ApplicationController
   def new
     @service = Service.new
     authorize @service
+    @breadcrumbs = [
+      { content: "Services", href: services_path },
+      { content: "New" }
+    ]
   end
 
   # GET /services/1/edit
   def edit
+    @breadcrumbs = [
+      { content: "Services", href: services_path },
+      { content: "Edit #{@service.to_s}" }
+    ]
   end
 
   # POST /services or /services.json
