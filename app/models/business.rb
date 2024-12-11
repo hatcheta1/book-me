@@ -19,7 +19,6 @@
 #  fk_rails_...  (owner_id => users.id)
 #
 class Business < ApplicationRecord
-  include MetaTaggable
   include PgSearch::Model
   multisearchable against: [ :name, :address ]
 
@@ -37,7 +36,7 @@ class Business < ApplicationRecord
 
   has_many :accepted_received_bookings, -> { where(status: :accepted) }, class_name: "Booking", dependent: :destroy
 
-  validates :name, :address, :about, presence: true
+  validates :name, :address, presence: true
 
   after_create :initialize_business_hours
 
