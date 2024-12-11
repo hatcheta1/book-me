@@ -2,9 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Business hours', type: :feature do
   scenario 'Business owner can see default business hours after adding a business' do
-
-    user = User.create!(email: 'john@example.com', 
-                        password: 'password', 
+    user = User.create!(email: 'john@example.com',
+                        password: 'password',
                         password_confirmation: 'password',
                         username: 'john',
                         first_name: 'John',

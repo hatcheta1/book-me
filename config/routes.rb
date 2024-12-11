@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   root "home#redirect_root"
 
   devise_for :users
-  
-  resources :search, only: [:index]
-  resources :home, only: [:index]
+
+  resources :search, only: [ :index ]
+  resources :home, only: [ :index ]
   get "/manifest.json", to: "pwa#manifest"
 
   # Bookings
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
   get "/businesses/:business_name/bookings", to: "bookings#index_for_business", as: :business_bookings
-  get "/users/:username/bookings",to: "bookings#index_for_client", as: :client_bookings
+  get "/users/:username/bookings", to: "bookings#index_for_client", as: :client_bookings
 
   # Businesses
   resources :businesses

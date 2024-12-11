@@ -30,7 +30,7 @@ class Booking < ApplicationRecord
   belongs_to :client, class_name: "User"
 
   belongs_to :business
-  
+
   belongs_to :service
 
   validates :started_at, :ended_at, presence: true
@@ -45,21 +45,21 @@ class Booking < ApplicationRecord
 
   def format_time(time)
     time.strftime("%l:%M %P")
-  end 
+  end
 
   def format_date(time)
     time.strftime("%a, %B %e")
-  end 
+  end
 
   # Attributes for simple_calendar gem
   def start_date
     started_at.to_date
   end
-  
+
   def start_time
     started_at.to_time
   end
-  
+
   def end_time
     ended_at.to_time
   end
@@ -84,4 +84,3 @@ class Booking < ApplicationRecord
     ended_at = tz.parse(ended_at.to_s) if ended_at.present?
   end
 end
-  
