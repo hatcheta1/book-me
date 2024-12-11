@@ -48,7 +48,7 @@ BookMe is an app where clients can book appointments and service providers (such
 `bin/dev`.
 
 ## Configuration
-There are no configurations at the moment. If you would like to implement something of that nature, please refer to [Rails credentials documentation](https://edgeguides.rubyonrails.org/security.html).
+There are no configurations at the moment, including no API endpoints. If you would like to implement something of that nature, please refer to [Rails credentials documentation](https://edgeguides.rubyonrails.org/security.html).
 
 ## Usage
 1. Start the Rails server:
