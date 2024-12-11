@@ -82,7 +82,6 @@ gem "dotenv"
 gem "faker"
 gem "htmlbeautifier"
 gem "http"
-gem "meta-tags", "~> 2.22"
 gem 'pg_search'
 gem "pundit", "~> 2.4"
 gem "simple_calendar"
