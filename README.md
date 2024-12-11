@@ -48,7 +48,34 @@ BookMe is an app where clients can book appointments and service providers (such
 `bin/dev`.
 
 ## Configuration
-There are no configurations at the moment, including no API endpoints. If you would like to implement something of that nature, please refer to [Rails credentials documentation](https://edgeguides.rubyonrails.org/security.html).
+This application includes the folllowing configurations:
+
+1. AWS Access Tokens: Required for integration with AWS S3 and IAM, which are being used for photo storage. These are stored securely using Rails credentials.
+
+2. Rails Environment Variables: Used for various application settings and must be configured according to your environment.
+
+### Regenerating Environment Variables
+1. To add credentials to your Rails credentials file. In the terminal run:
+```EDITOR="code --wait" rails credentials:edit```
+
+2. And then add your AWS credentials.
+```ruby
+aws:
+  access_key_id: YOUR_ACCESS_KEY_ID
+  secret_access_key: YOUR_SECRET_ACCESS_KEY
+```
+
+3. Save and close the file. Rails will automatically encrypt the credentials and save them to `config/credentials.yml.enc.`
+
+4. To regenerate the master key (used to decrypt credentials.yml.enc), run:
+```bash
+rm config/master.key
+rails credentials:edit
+```
+
+5. Ensure the master.key is not committed to version control. Add it to your `.gitignore` file.
+
+For more information on managing these configurations, refer to the [Rails credentials documentation](https://edgeguides.rubyonrails.org/security.html) and ensure your environment is properly set up.
 
 ## Usage
 1. Start the Rails server:
