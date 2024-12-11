@@ -54,7 +54,7 @@ There are no configurations at the moment. If you would like to implement someth
 1. Start the Rails server:
 `bin/dev`
 
-2. Open your browser and navigate to http://localhost:3000
+2. Open your browser and navigate to http://localhost:3000.
 
 3. Sign up for an account to navigate client-specific views. From there, you can add a business to see the business owner-specific views. Or, log in with one of the following accounts to experience the app without creating an account: 
 
@@ -69,10 +69,10 @@ There are no configurations at the moment. If you would like to implement someth
   After you create the booking, it will show up as `Pending` until the status is updated by the business owner.
   ![alt text](pending_booking_screenshot.png)
 
-6. If you are on a business owner page, you can accept or decline an incoming booking.
+6. If you are logged into a business owner's account, you can accept or decline an incoming booking.
   ![alt text](accept_and_decline.png)
 
-7. As a business owner, you can edit your basic business information, business hours, and services from your profile. You can also use the drop-down menu to navigate to your `Bookings`, `Calendar`, `Services`, and `Business Hours` pages to manage your bookings and edit the aspects of your business there.
+7. As a business owner, you can edit your basic business information, business hours, and services from your profile. You can also use the drop-down menu to navigate to your `Bookings`, `Calendar`, `Services`, and `Business Hours` pages to manage your bookings and edit other aspects of your business.
   ![alt text](business_profile.png)
 
 ## Entity Relationship Diagram
@@ -92,12 +92,12 @@ There are no configurations at the moment. If you would like to implement someth
 Contributions are welcome! Please follow these guidelines:
 
 ### Steps
-1. Fork the repository
-2. Create a new branch: `git checkout -b branch_name`
+1. Fork the repository.
+2. Create a new branch: `git checkout -b branch-name`.
 Name the branch using your initials and a brief description (e.g. `ah-add-payment-processing`).
-3. Commit your changes (`git commit -m 'Add some feature'`)
-4. Push to the branch (`git push origin feature-branch`)
-5. Open a pull request
+3. Commit your changes (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin branch-name`).
+5. Open a pull request.
 
 ### Coding conventions
 - Do not make commits directly to the main branch.
@@ -111,5 +111,5 @@ Name the branch using your initials and a brief description (e.g. `ah-add-paymen
 - Leave any concerns or questions in the comments of your pull request.
 
 ## Contact
-- Your Name - [ahatchett02@gmail.com](mailto:ahatchett02@gmail.com)
+- Ashanti Hatchett - [ahatchett02@gmail.com](mailto:ahatchett02@gmail.com)
 - Project Link: [https://github.com/hatcheta1/book-me](https://github.com/hatcheta1/book-me)
