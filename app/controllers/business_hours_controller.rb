@@ -9,6 +9,9 @@ class BusinessHoursController < ApplicationController
     @business_hours = policy_scope(current_user.business_hours).sort_by do |day_hours|
       BusinessHour::DAYS_OF_THE_WEEK.index(day_hours.day_of_the_week)
     end
+    @breadcrumbs = [
+      { content: "Business Hours", href: business_hours_path }
+    ]
   end
 
   # GET /business_hours/new
@@ -18,6 +21,10 @@ class BusinessHoursController < ApplicationController
 
   # GET /business_hours/1/edit
   def edit
+    @breadcrumbs = [
+      { content: "Business Hours", href: business_hours_path },
+      { content: "Edit #{@business_hour.day_of_the_week} Hours" }
+    ]
   end
 
   # POST /business_hours or /business_hours.json
