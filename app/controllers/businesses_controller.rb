@@ -13,6 +13,7 @@ class BusinessesController < ApplicationController
 
   # GET /businesses/1 or /businesses/1.json
   def show
+    set_meta_tags @business.to_meta_tags
     @business_hours = @business.business_hours.sort_by do |day_hours|
       BusinessHour::DAYS_OF_THE_WEEK.index(day_hours.day_of_the_week)
     end
