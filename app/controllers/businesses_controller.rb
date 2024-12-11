@@ -9,6 +9,9 @@ class BusinessesController < ApplicationController
   # GET /businesses or /businesses.json
   def index
     @businesses = policy_scope(Business).page(params[:page]).per(8)
+    @breadcrumbs = [
+      { content: "Businesses", href: businesses_path }
+    ]
   end
 
   # GET /businesses/1 or /businesses/1.json
@@ -17,15 +20,27 @@ class BusinessesController < ApplicationController
     @business_hours = @business.business_hours.sort_by do |day_hours|
       BusinessHour::DAYS_OF_THE_WEEK.index(day_hours.day_of_the_week)
     end
+    @breadcrumbs = [
+      { content: "Businesses", href: businesses_path },
+      { content: @business.to_s }
+    ]
   end
 
   # GET /businesses/new
   def new
     @business = Business.new
+    @breadcrumbs = [
+      { content: "Businesses", href: businesses_path },
+      { content: "New" }
+    ]
   end
 
   # GET /businesses/1/edit
   def edit
+    @breadcrumbs = [
+      { content: "#{@business.to_s}", href: business_path(@business.id) },
+      { content: "Edit Business Profile", href: business_path(@business.id) }
+    ]
   end
 
   # POST /businesses or /businesses.json
