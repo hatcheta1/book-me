@@ -75,6 +75,8 @@ rails credentials:edit
 
 5. Ensure the master.key is not committed to version control. Add it to your `.gitignore` file.
 
+For more information on managing these configurations, refer to the [Rails credentials documentation](https://edgeguides.rubyonrails.org/security.html) and ensure your environment is properly set up.
+
 ## Usage
 1. Start the Rails server:
 `bin/dev`.
