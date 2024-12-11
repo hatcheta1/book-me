@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  routes.default_url_options[:host] = 'https://animated-guacamole-jjw45rggxj52prqj-3000.app.github.dev/'
   # Allow server to be hosted on any URL
   config.hosts.clear
   # Allow better_errors to work in online IDE
