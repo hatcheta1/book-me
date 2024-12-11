@@ -39,11 +39,11 @@ class BookingPolicy < ApplicationPolicy
   end
 
   def accept?
-    user == booking.buisness.owner
+    user == booking.business.owner
   end
 
   def decline?
-    accept?
+    true
   end
 
   class Scope < Scope

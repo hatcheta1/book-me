@@ -3,7 +3,7 @@ class BookingsController < ApplicationController
   before_action :normalize_business_name, only: :index_for_business
   before_action :authorize_booking,  except: [ :index_for_client, :index_for_business ]
   skip_after_action :verify_authorized, only: [:index_for_client, :index_for_business ]
-  skip_after_action :verify_policy_scoped, except: [ :index_for_client, :index_for_business ]
+  skip_after_action :verify_policy_scoped, except: [ :index_for_business ]
 
   def index_for_business
     @business = current_user.businesses.first
@@ -11,7 +11,7 @@ class BookingsController < ApplicationController
   end
 
   def index_for_client
-    @bookings = policy_scope(current_user.sent_bookings)
+    @bookings = current_user.sent_bookings
   end
 
   # GET /bookings/1 or /bookings/1.json
