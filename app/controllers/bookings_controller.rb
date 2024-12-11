@@ -9,14 +9,14 @@ class BookingsController < ApplicationController
     @business = current_user.businesses.first
     @bookings = policy_scope(@business.received_bookings).page(params[:page]).per(8) if @business
     @breadcrumbs = [
-      {content: "Business Bookings", href: business_bookings_path(@bookings.first.business.name)}
+      { content: "Business Bookings", href: business_bookings_path(@bookings.first.business.name) }
     ]
   end
 
   def index_for_client
     @bookings = current_user.sent_bookings
     @breadcrumbs = [
-      {content: "Your Bookings", href: client_bookings_path(@bookings.first.client.username)}
+      { content: "Your Bookings", href: client_bookings_path(@bookings.first.client.username) }
     ]
   end
 
@@ -24,13 +24,13 @@ class BookingsController < ApplicationController
   def show
     if current_user == @booking.business.owner
       @breadcrumbs = [
-        {content: "Business Bookings", href: business_bookings_path(@booking.business.name)},
-        {content: @booking.to_s },
+        { content: "Business Bookings", href: business_bookings_path(@booking.business.name) },
+        { content: @booking.to_s },
       ]
     else
       @breadcrumbs = [
-      {content: "Your Bookings", href: client_bookings_path(@booking.client.username)},
-      {content: @booking.to_s},
+      { content: "Your Bookings", href: client_bookings_path(@booking.client.username) },
+      { content: @booking.to_s },
     ]
     end
   end
@@ -61,8 +61,8 @@ class BookingsController < ApplicationController
   # GET /bookings/1/edit
   def edit
     @breadcrumbs = [
-      {content: @booking.to_s},
-      {content: "Edit"},
+      { content: @booking.to_s },
+      { content: "Edit" },
     ]
   end
 
