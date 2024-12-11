@@ -1,13 +1,14 @@
 class BusinessHoursController < ApplicationController
   before_action :set_business_hour, only: %i[ show edit update destroy ]
+  before_action :authorize_business_hour
+  skip_after_action :verify_authorized, only: :index
+  skip_after_action :verify_policy_scoped, except: :index
 
   # GET /business_hours or /business_hours.json
   def index
-    @business_hours = current_user.business_hours
-  end
-
-  # GET /business_hours/1 or /business_hours/1.json
-  def show
+    @business_hours = policy_scope(current_user.business_hours).sort_by do |day_hours|
+      BusinessHour::DAYS_OF_THE_WEEK.index(day_hours.day_of_the_week)
+    end
   end
 
   # GET /business_hours/new
@@ -80,5 +81,9 @@ class BusinessHoursController < ApplicationController
 
     def time_present?(time_key)
       params["#{time_key}"].present? && params["#{time_key}_period"].present?
+    end
+
+    def authorize_business_hour
+      authorize(@business_hour || BusinessHour)
     end
 end

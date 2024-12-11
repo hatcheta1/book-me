@@ -1,20 +1,17 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: %i[ show edit update destroy accept decline ]
   before_action :normalize_business_name, only: :index_for_business
-
-  # GET /bookings or /bookings.json
-  def index
-    @bookings = Booking.all
-  end
+  before_action :authorize_booking,  except: [ :index_for_client, :index_for_business ]
+  skip_after_action :verify_authorized, only: [:index_for_client, :index_for_business ]
+  skip_after_action :verify_policy_scoped, except: [ :index_for_business ]
 
   def index_for_business
-    @business = Business.find_by(owner_id: current_user.id)
-    @bookings = @business.received_bookings
+    @business = current_user.businesses.first
+    @bookings = policy_scope(@business.received_bookings) if @business
   end
 
   def index_for_client
-    @client = current_user
-    @bookings = @client.sent_bookings
+    @bookings = current_user.sent_bookings
   end
 
   # GET /bookings/1 or /bookings/1.json
@@ -47,7 +44,7 @@ class BookingsController < ApplicationController
 
     respond_to do |format|
       if @booking.save
-        if @booking.status == "accepted"
+        if current_user == @booking.business.owner
           format.html { redirect_to business_bookings_path(@booking.business.name), notice: "Booking was successfully created." }
         else
           format.html { redirect_to client_bookings_path(@booking.client.username), notice: "Booking was successfully created." }
@@ -64,7 +61,11 @@ class BookingsController < ApplicationController
   def update
     respond_to do |format|
       if @booking.update(booking_params)
-        format.html { redirect_to booking_url(@booking), notice: "Booking was successfully updated." }
+        if current_user == @booking.business.owner
+          format.html { redirect_to business_bookings_path(@booking.business.name), notice: "Booking was successfully updated." }
+        else
+          format.html { redirect_to client_bookings_path(@booking.client.username), notice: "Booking was successfully updated." }
+        end
         format.json { render :show, status: :ok, location: @booking }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -112,6 +113,10 @@ class BookingsController < ApplicationController
     end
   end
 
+  def authorize_booking
+    authorize(@booking || Booking)
+  end
+  
   def update_booking_status(status)
     @booking.update!(status: status)
     redirect_to business_bookings_path(@booking.business.name), notice: "Booking #{status} successfully."
