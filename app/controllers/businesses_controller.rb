@@ -30,7 +30,7 @@ class BusinessesController < ApplicationController
   def new
     @business = Business.new
     @breadcrumbs = [
-      { content: "Businesses", href: businesses_path },
+      { content: "Edit profile", href: edit_registration_path(current_user) },
       { content: "New" }
     ]
   end
