@@ -5,9 +5,7 @@
 </div>
 
 <div class="container mt-2">
-  <!-- First video and caption -->
   <div class="row align-items-center mb-5 bg-light py-4">
-    <!-- Caption -->
     <div class="col-md-6 text-end pe-4">
       <div class="card border-0 shadow-sm p-4">
       <i class="fa-solid fa-magnifying-glass mb-1"></i>
@@ -18,25 +16,21 @@
           <%= render "search/modal" %>
           </div>
     </div>
-    <!-- Video -->
     <div class="col-md-6">
-      <video class="w-100 rounded" autoplay loop muted playsinline>
+      <video class="w-100 rounded" title="A client searching for a business that offers a blowout, going to the business page and scheduling an appointment" autoplay loop muted playsinline>
         <source src="<%= asset_path('make_booking.mp4') %>" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
   </div>
 
-  <!-- Second video and caption -->
   <div class="row align-items-center bg-white py-4">
-    <!-- Video -->
     <div class="col-md-6">
-      <video class="w-100 rounded" autoplay loop muted playsinline>
+      <video class="w-100 rounded" title="A user clicking the 'Add my business' button on their edit profile page" autoplay loop muted playsinline>
         <source src="<%= asset_path('add_business.mp4') %>" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
-    <!-- Caption -->
     <div class="col-md-6 text-end pe-4">
       <div class="card border-0 shadow-sm p-4">
       <i class="fa-regular fa-calendar mb-1"></i>
