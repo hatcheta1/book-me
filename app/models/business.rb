@@ -20,7 +20,7 @@
 #
 class Business < ApplicationRecord
   include PgSearch::Model
-  multisearchable against: [:name, :address]
+  multisearchable against: [ :name, :address ]
 
   belongs_to :owner, class_name: "User"
 

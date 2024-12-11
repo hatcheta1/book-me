@@ -21,14 +21,14 @@
 #
 class Service < ApplicationRecord
   include PgSearch::Model
-  multisearchable against: [:name, :description]
+  multisearchable against: [ :name, :description ]
 
   belongs_to :business
 
   has_one_attached :photo
 
   has_many :received_bookings, class_name: "Booking"
-  
+
   has_many :accepted_received_bookings, -> { accepted }, class_name: "Booking"
 
   validates :name, :duration, :price, presence: true

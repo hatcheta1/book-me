@@ -72,10 +72,10 @@ class BusinessHoursController < ApplicationController
     end
 
     def to_24_hour_time(time, period)
-      hour, minute = time.split(':').map(&:to_i)
-      hour += 12 if period == 'PM' && hour != 12
-      hour = 0 if period == 'AM' && hour == 12
-      format('%02d:%02d', hour, minute)
+      hour, minute = time.split(":").map(&:to_i)
+      hour += 12 if period == "PM" && hour != 12
+      hour = 0 if period == "AM" && hour == 12
+      format("%02d:%02d", hour, minute)
     end
 
     def time_present?(time_key)

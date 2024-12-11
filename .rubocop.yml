@@ -1,0 +1,12 @@
+inherit_gem:
+  rubocop-rails-omakase: rubocop.yml
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - node_modules/**/*  # Added '**' for subdirectories
+    - public/**/*        # Consistent pattern with subdirectories
+    - vendor/**/*        # Consistent pattern with subdirectories
+
+Style/MixinGrouping:
+  Enabled: false

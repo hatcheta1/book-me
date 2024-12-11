@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.feature "Booking Creation", type: :feature do
   let(:user) do
-    user = User.create!(email: 'john@example.com', 
-                        password: 'password', 
+    user = User.create!(email: 'john@example.com',
+                        password: 'password',
                         password_confirmation: 'password',
                         username: 'john',
                         first_name: 'John',
