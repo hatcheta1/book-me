@@ -9,14 +9,14 @@ class BookingsController < ApplicationController
     @business = current_user.businesses.first
     @bookings = policy_scope(@business.received_bookings).page(params[:page]).per(8) if @business
     @breadcrumbs = [
-      { content: "Business Bookings", href: business_bookings_path(@bookings.first.business.name) }
+      { content: "Business Bookings" }
     ]
   end
 
   def index_for_client
     @bookings = current_user.sent_bookings
     @breadcrumbs = [
-      { content: "Your Bookings", href: client_bookings_path(@bookings.first.client.username) }
+      { content: "Your Bookings" }
     ]
   end
 
