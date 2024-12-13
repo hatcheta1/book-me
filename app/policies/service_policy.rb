@@ -11,7 +11,7 @@ class ServicePolicy < ApplicationPolicy
   end
 
   def show?
-    user.present? && service.business.owner == user
+    true
   end
 
   def new?
