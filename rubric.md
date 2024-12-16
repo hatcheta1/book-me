@@ -128,7 +128,7 @@
 - [ ] **Sending SMS**: Does the application send transactional SMS messages to users?
 - [x] **Building for Mobile**: Implementation of a Progressive Web App (PWA) to provide a mobile app-like experience on the web.
 - [x] **Advanced Search and Filtering**: Incorporation of advanced search and filtering capabilities (Ransack or similar) to improve data retrieval and user experience.
-- [ ] **Data Visualization**: Integration of charts, graphs, or other visual representations of data (Chartkick or similar) to provide insightful views of data to the user.
+- [x] **Data Visualization**: Integration of charts, graphs, or other visual representations of data (Chartkick or similar) to provide insightful views of data to the user.
 - [x] **Dynamic Meta Tags**: Dynamic generation of meta tags for social media previews and SEO optimization, enhancing the application's presence on the web.
 - [x] **Pagination**: Use of pagination libraries (Kaminari, will_paginate, or similar) to manage large sets of data efficiently on the UI.
 - [ ] **Internationalization (i18n)**: Support for multiple languages using internationalization techniques, making the app accessible to a global audience.
@@ -140,7 +140,7 @@
 - [ ] **Turbo Frames**: Implementation of Turbo Frames to enhance the performance of the application by updating only parts of the page.
 - [ ] **Other**: Any other features or functionalities that enhance the application's value and user experience (specify in notes below).
 
-### Score (/15): 7
+### Score (/15): 8
 
 ### Notes:
 
@@ -170,7 +170,7 @@
 - Backend (/9): 8
 - Quality Assurance and Testing (/2): 1
 - Security and Authorization (/5): 4
-- Features (/15): 7
+- Features (/15): 8
 - Ambitious Features (/16): 2
 ---
-- Total: 70
+- Total: 71
