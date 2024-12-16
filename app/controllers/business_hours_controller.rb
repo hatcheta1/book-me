@@ -79,6 +79,7 @@ class BusinessHoursController < ApplicationController
       end
     end
 
+    # Easy to understand but could have added comments. Also everything below this line could be moved to a helper or service object or a concern or the model same with any other controller that has similar methods.
     def to_24_hour_time(time, period)
       hour, minute = time.split(":").map(&:to_i)
       hour += 12 if period == "PM" && hour != 12
