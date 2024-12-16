@@ -11,3 +11,4 @@ class SearchController < ApplicationController
     end
   end
 end
+# It seems like this can also be a concern named PG searchable
