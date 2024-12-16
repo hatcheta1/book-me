@@ -21,6 +21,14 @@ Rails.application.routes.draw do
   resources :businesses
   get "/businesses/:business_name/calendar", to: "businesses#calendar", as: :business_calendar
 
+  resources :analytics, only: [:index] do
+    collection do
+      get :popular_hours
+      get :popular_days
+      get :popular_services
+    end
+  end
+
   resources :business_hours
   resources :services
 end

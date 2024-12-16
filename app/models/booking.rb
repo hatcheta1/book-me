@@ -77,6 +77,29 @@ class Booking < ApplicationRecord
     end
   end
 
+  scope :popular_times, ->(business_id) {
+  where(business_id: business_id)
+    .group(Arel.sql("EXTRACT(HOUR FROM started_at)::integer"))
+    .order(Arel.sql("count_all DESC"))
+    .count
+}
+
+  
+  scope :by_day_of_week, ->(business_id) {
+  where(business_id: business_id)
+    .group(Arel.sql("EXTRACT(DOW FROM started_at)::integer"))
+    .order(Arel.sql("EXTRACT(DOW FROM started_at)::integer"))
+    .count
+}
+
+scope :popular_services, ->(business_id) {
+  joins(:service)
+    .where(business_id: business_id)
+    .group("services.name")
+    .order("count_all DESC")
+    .count
+}
+
   scope :for_this_week, -> {
   where("started_at >= ? AND started_at <= ?", Date.today.beginning_of_week, Date.today.end_of_week)
   }
