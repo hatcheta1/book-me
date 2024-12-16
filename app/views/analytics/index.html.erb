@@ -1,0 +1,17 @@
+<div class="container">
+  <h1><%= "#{current_user.businesses.first.name} Analytics" %></h1>
+
+  <hr>
+
+  <div class="my-5">
+    <%= pie_chart popular_services_analytics_path, title: "Popular Services" %>
+  </div>
+
+  <div class="my-5">
+    <%= line_chart popular_hours_analytics_path, title: "Popular Hours" %>
+  </div>
+
+  <div class="my-5">
+    <%= column_chart popular_days_analytics_path, title: "Popular Days" %>
+  </div>
+</div>
