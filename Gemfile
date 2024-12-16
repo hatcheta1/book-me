@@ -96,11 +96,13 @@ group :development do
   gem "annotate"
   gem "better_errors"
   gem "binding_of_caller"
+  gem "bullet"
   gem "dev_toolbar"
   gem "draft_generators"
   gem "grade_runner"
   gem "letter_opener"
   gem "pry-rails"
+  gem "rack-mini-profiler"
   gem "rails_db"
   gem "rails-erd"
   gem "rubocop-rails-omakase", require: false
